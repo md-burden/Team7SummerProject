@@ -50,3 +50,14 @@ position: absolute;
     background:#ca1814;
     display: inline;
 }
+#RecipePhoto{
+    height:300px;
+    width:300px;
+    border:10px solid white;
+
+}
+
+.IngredientList{
+    font-size:16pt;
+    min-width:200px;
+}
