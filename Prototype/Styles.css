@@ -61,15 +61,3 @@ position: absolute;
     font-size:16pt;
     min-width:200px;
 }
-
-/* Overrides for Boostrap */
-.btn-outline-secondary{
-    background-color: rgba(202,24,20,.2);
-    border-color: rgba(202,24,20,1);
-}
-
-.btn-outline-secondary:hover{
-    background-color: rgba(202,24,20,.5);
-    border-color: rgba(202,24,20,.1);
-}
-
