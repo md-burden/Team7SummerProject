@@ -1,5 +1,6 @@
 package com.team7.recipeasy.reports;
 
+import com.team7.recipeasy.comment.Comment;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
@@ -7,9 +8,9 @@ import jakarta.persistence.*;
 @Table(name = "reports")
 public class Report {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int commentId;
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     @Nonnull
     private int reportId;
@@ -20,18 +21,18 @@ public class Report {
     public Report() {
     }
 
-    public Report(int commentId, int reportId, @Nonnull String reportReason) {
-        this.commentId = commentId;
+    public Report(Comment comment, int reportId, @Nonnull String reportReason) {
+        this.comment = comment;
         this.reportId = reportId;
         this.reportReason = reportReason;
     }
 
-    public int getCommentId() {
-        return commentId;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public int getReportId() {
