@@ -3,6 +3,8 @@ package com.team7.recipeasy.comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentService {
 
@@ -15,6 +17,10 @@ public class CommentService {
 
     public Comment fetchCommentById(int id){
         return commentRepository.findById(id).orElse(null);
+    }
+
+    public List<Comment> fetchAllCommentsByRecipeId(int id){
+        return commentRepository.getCommentsByRecipe(id);
     }
 
     public void saveComment(Comment comment){
