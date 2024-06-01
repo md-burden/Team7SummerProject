@@ -1,6 +1,8 @@
+
 package com.team7.recipeasy.comment;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
@@ -17,6 +19,8 @@ public class Comment {
     @Nonnull
     private int recipeId;
 
+    private int connectedId;
+
     @Nonnull
     private int commenterId;
 
@@ -29,12 +33,21 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int commentId, int recipeId, int commenterId, @Nonnull String commentContents, @NonNull Timestamp postTime) {
+    public int getConnectedId() {
+        return connectedId;
+    }
+
+    public void setConnectedId(int connectedId) {
+        this.connectedId = connectedId;
+    }
+
+    public Comment(int commentId, int recipeId, int commenterId, int connectedId, @Nonnull String commentContents, @NonNull Timestamp postTime) {
         this.commentId = commentId;
         this.recipeId = recipeId;
         this.commenterId = commenterId;
         this.commentContents = commentContents;
         this.postTime = postTime;
+        this.connectedId = connectedId;
     }
 
     public int getCommentId() {
@@ -78,4 +91,5 @@ public class Comment {
     public void setPostTime(@NonNull Timestamp postTime) {
         this.postTime = postTime;
     }
+
 }
