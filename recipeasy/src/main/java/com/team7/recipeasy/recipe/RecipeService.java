@@ -15,13 +15,14 @@ public class RecipeService {
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe, int userId){
+    public void createNewRecipe(Recipe recipe){
         recipeRepository.save(recipe);
     }
 
-    // TODO: Implement update method
     public void updateRecipe(Recipe recipe){
+        recipe = new Recipe(recipe);
 
+        recipeRepository.save(recipe);
     }
 
     public  Object getAllRecipes(){
