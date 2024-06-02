@@ -29,6 +29,10 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
+    public  Object getAllRecipesByCreatorId(int id){
+        return recipeRepository.findAllCreatorRecipe(id);
+    }
+
     /**
      * Fetches the 5 most recent recipes for a particular creator
      * @param userId
