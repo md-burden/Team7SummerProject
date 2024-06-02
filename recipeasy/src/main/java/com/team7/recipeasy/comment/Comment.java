@@ -33,20 +33,20 @@ public class Comment {
     public Comment() {
     }
 
-    public int getConnectedId() {
-        return connectedId;
-    }
-
-    public void setConnectedId(int connectedId) {
-        this.connectedId = connectedId;
-    }
-
     public Comment(int commentId, int recipeId, int commenterId, int connectedId, @Nonnull String commentContents, @NonNull Timestamp postTime) {
         this.commentId = commentId;
         this.recipeId = recipeId;
         this.commenterId = commenterId;
         this.commentContents = commentContents;
         this.postTime = postTime;
+        this.connectedId = connectedId;
+    }
+
+    public int getConnectedId() {
+        return connectedId;
+    }
+
+    public void setConnectedId(int connectedId) {
         this.connectedId = connectedId;
     }
 

@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 @Table(name = "userstats")
 public class UserStats {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int userStatId;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -20,9 +24,18 @@ public class UserStats {
     public UserStats() {
     }
 
-    public UserStats(User user, @Nonnull Timestamp timestamp) {
+    public UserStats(int userStatId, User user, @Nonnull Timestamp timestamp) {
         this.user = user;
         this.timestamp = timestamp;
+        this.userStatId = userStatId;
+    }
+
+    public int getUserStatId() {
+        return userStatId;
+    }
+
+    public void setUserStatId(int userStatId) {
+        this.userStatId = userStatId;
     }
 
     public User getUser() {
