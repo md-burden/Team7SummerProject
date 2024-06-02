@@ -28,7 +28,7 @@ public class Recipe {
     private String recipeInstructions;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="userId")
     private User user;
 
     public Recipe() {
