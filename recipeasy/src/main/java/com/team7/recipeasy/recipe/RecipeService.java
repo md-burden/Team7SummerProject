@@ -3,6 +3,8 @@ package com.team7.recipeasy.recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RecipeService {
 
@@ -13,10 +15,11 @@ public class RecipeService {
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe){
+    public void createNewRecipe(Recipe recipe, int userId){
         recipeRepository.save(recipe);
     }
 
+    // TODO: Implement update method
     public void updateRecipe(Recipe recipe){
 
     }
@@ -25,7 +28,12 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
-    public Recipe getRecipeById(int id){
-        return recipeRepository.findById(id).orElse(null);
+    /**
+     * Fetches the 5 most recent recipes for a particular creator
+     * @param userId
+     * @return
+     */
+    public List<Recipe> getRecentCreatorRecipes(int userId){
+        return recipeRepository.findCreatorRecent(userId);
     }
 }
