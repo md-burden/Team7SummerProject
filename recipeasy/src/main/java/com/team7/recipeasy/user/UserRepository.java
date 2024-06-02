@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-    @Query(value = "SELECT COUNT(user_id) FROM user WHERE role = ?1", nativeQuery = true)
+    @Query(value = "SELECT COUNT(user_id) FROM user WHERE role = ?1 AND is_active_user = 1", nativeQuery = true)
     int getActiveUserCountByAcctType(int role);
 }
