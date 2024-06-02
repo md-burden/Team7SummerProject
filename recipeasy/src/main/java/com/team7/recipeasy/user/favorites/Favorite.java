@@ -16,7 +16,7 @@ public class Favorite {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
