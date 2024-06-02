@@ -1,5 +1,6 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.user.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
@@ -26,21 +27,31 @@ public class Recipe {
     @Nonnull
     private String recipeInstructions;
 
-    @OneToMany
-    @JoinColumn(name="creatorId")
-    private int Creator;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public Recipe() {
     }
 
-    public Recipe(int recipeId, int totalSaves, @Nonnull String recipeType, @Nonnull String recipeCountry, @Nonnull String recipeTitle, @Nonnull String recipeInstructions, int creator) {
+    public Recipe(Recipe recipe){
+        this.recipeId = recipe.recipeId;
+        this.totalSaves = recipe.totalSaves;
+        this.recipeType = recipe.recipeType;
+        this.recipeCountry = recipe.recipeCountry;
+        this.recipeTitle = recipe.recipeTitle;
+        this.recipeInstructions = recipe.recipeInstructions;
+        this.user = recipe.user;
+    }
+
+    public Recipe(int recipeId, int totalSaves, @Nonnull String recipeType, @Nonnull String recipeCountry, @Nonnull String recipeTitle, @Nonnull String recipeInstructions, User user) {
         this.recipeId = recipeId;
         this.totalSaves = totalSaves;
         this.recipeType = recipeType;
         this.recipeCountry = recipeCountry;
         this.recipeTitle = recipeTitle;
         this.recipeInstructions = recipeInstructions;
-        Creator = creator;
+        this.user = user;
     }
 
     public int getRecipeId() {
@@ -95,11 +106,11 @@ public class Recipe {
         this.recipeInstructions = recipeInstructions;
     }
 
-    public int getCreator() {
-        return Creator;
+    public User getCreatorId() {
+        return user;
     }
 
-    public void setCreator(int creator) {
-        Creator = creator;
+    public void setCreatorId(User user) {
+        this.user = user;
     }
 }

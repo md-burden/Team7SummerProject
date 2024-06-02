@@ -8,12 +8,13 @@ import jakarta.persistence.*;
 @Table(name = "reports")
 public class Report {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int reportId;
+
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
-
-    @Nonnull
-    private int reportId;
 
     @Nonnull
     private String reportReason;

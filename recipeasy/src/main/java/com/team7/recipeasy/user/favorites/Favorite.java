@@ -8,20 +8,33 @@ import jakarta.persistence.*;
 @Table(name = "favorites")
 public class Favorite {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int favoriteId;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     public Favorite() {
     }
 
-    public Favorite(User user, Recipe recipe) {
+    public Favorite(int favoriteId, User user, Recipe recipe) {
+        this.favoriteId = favoriteId;
         this.user = user;
         this.recipe = recipe;
+    }
+
+    public int getFavoriteId() {
+        return favoriteId;
+    }
+
+    public void setFavoriteId(int favoriteId) {
+        this.favoriteId = favoriteId;
     }
 
     public User getUser() {
