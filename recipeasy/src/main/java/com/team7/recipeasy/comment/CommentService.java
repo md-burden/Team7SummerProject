@@ -44,4 +44,12 @@ public class CommentService {
 
     }
 
+    public int getCommentCountByRecipe(int recipeId){
+        return commentRepository.getCommentCountByRecipe(recipeId);
+    }
+
+    public int getCommentCountByUser(int userId){
+        return commentRepository.getCommentCountByUser(userId);
+    }
+
 }

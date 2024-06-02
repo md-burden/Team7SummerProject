@@ -15,4 +15,10 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
      */
     @Query(value = "select * from comment where recipe_id = ?1", nativeQuery = true)
     public List<Comment> getCommentsByRecipe(int recipeId);
+
+    @Query(value = "select count(*) from comment where recipe_id = ?1", nativeQuery = true)
+    public int getCommentCountByRecipe(int recipeId);
+
+    @Query(value = "select count(*) from comment where commenter_id = ?1", nativeQuery = true)
+    public int getCommentCountByUser(int userId);
 }

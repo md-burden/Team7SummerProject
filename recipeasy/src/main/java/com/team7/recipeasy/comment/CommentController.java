@@ -53,4 +53,14 @@ public class CommentController {
         commentService.deleteCommentReplyBlock(id);
     }
 
+    @GetMapping("/stats/totalCommentsByUser/{id}")
+    public int getTotalCommentCountByUser(@PathVariable int id){
+        return commentService.getCommentCountByUser(id);
+    }
+
+    @GetMapping("/stats/totalCommentsByRecipe/{id}")
+    public int getTotalCommentCountByRecipe(@PathVariable int id){
+        return commentService.getCommentCountByRecipe(id);
+    }
+
 }

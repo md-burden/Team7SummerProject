@@ -16,5 +16,9 @@ public class UserStatsService {
     public void deleteUserStats(UserStats u){
         repo.delete(u);
     }
+
+    public int getCurrentLoginCount() {
+        return repo.getTotalLogins();
+    }
 }
 
