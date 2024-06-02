@@ -36,4 +36,8 @@ public class RecipeService {
     public List<Recipe> getRecentCreatorRecipes(int userId){
         return recipeRepository.findCreatorRecent(userId);
     }
+
+    public Recipe getRecipeById(int id){
+        return recipeRepository.findById(id).orElse(null);
+    }
 }

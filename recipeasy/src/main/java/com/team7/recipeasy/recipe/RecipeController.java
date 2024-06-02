@@ -34,4 +34,15 @@ public class RecipeController {
     public List<Recipe> getRecentRecipes(@RequestParam(value = "userId", required = true) int userId){
         return recipeService.getRecentCreatorRecipes(userId);
     }
+    @GetMapping("/totalSaves/{id}")
+    public int getTotalSavesById(@PathVariable int id){
+        Recipe r = recipeService.getRecipeById(id);
+        if (r != null){
+            return r.getTotalSaves();
+        }
+        else{
+            return -1;
+        }
+    }
+
 }
