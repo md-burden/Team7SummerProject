@@ -8,5 +8,13 @@ public class UserStatsService {
 
     @Autowired
     UserStatsRepository repo;
+
+    public void saveUserStats(UserStats u){
+        repo.save(u);
+    }
+
+    public void deleteUserStats(UserStats u){
+        repo.delete(u);
+    }
 }
 
