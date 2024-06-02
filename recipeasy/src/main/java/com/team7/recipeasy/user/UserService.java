@@ -1,5 +1,6 @@
 package com.team7.recipeasy.user;
 
+import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class UserService {
             u.setActiveUser(false);
             userRepository.save(u);
         }
+    }
+
+    public int getActiveUserCountByAcctType(Role r){
+        return userRepository.getActiveUserCountByAcctType(r.ordinal());
     }
 
     public void deleteUserById(int id){

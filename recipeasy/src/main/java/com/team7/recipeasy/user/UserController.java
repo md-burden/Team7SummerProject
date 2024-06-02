@@ -1,5 +1,6 @@
 package com.team7.recipeasy.user;
 
+import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +41,10 @@ public class UserController {
     @DeleteMapping("/deleteAccount/{id}")
     public void deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
+    }
+
+    @GetMapping("/stats/getCount")
+    public int getActiveUserCountByAcctType(@RequestBody Role r){
+        return userService.getActiveUserCountByAcctType(r);
     }
 }
