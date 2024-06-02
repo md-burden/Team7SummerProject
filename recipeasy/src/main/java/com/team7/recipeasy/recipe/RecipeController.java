@@ -22,4 +22,15 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @GetMapping("/totalSaves/{id}")
+    public int getTotalSavesById(@PathVariable int id){
+        Recipe r = recipeService.getRecipeById(id);
+        if (r != null){
+            return r.getTotalSaves();
+        }
+        else{
+            return -1;
+        }
+    }
+
 }
