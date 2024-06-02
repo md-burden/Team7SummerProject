@@ -19,6 +19,10 @@ public class CommentService {
         return commentRepository.findById(id).orElse(null);
     }
 
+    public List<Comment> fetchAllComments(){
+        return commentRepository.findAll();
+    }
+
     public List<Comment> fetchAllCommentsByRecipeId(int id){
         return commentRepository.getCommentsByRecipe(id);
     }
