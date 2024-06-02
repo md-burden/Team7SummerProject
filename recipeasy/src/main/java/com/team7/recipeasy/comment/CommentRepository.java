@@ -13,6 +13,6 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
      * @param recipeId id to search for
      * @return a list of comments
      */
-    @Query(value = "select * from comments where recipe_id = ?1", nativeQuery = true)
+    @Query(value = "select * from comment where recipe_id = ?1", nativeQuery = true)
     public List<Comment> getCommentsByRecipe(int recipeId);
 }

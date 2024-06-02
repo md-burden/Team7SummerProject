@@ -24,9 +24,9 @@ public class Favorite {
     }
 
     public Favorite(int favoriteId, User user, Recipe recipe) {
-        this.favoriteId = favoriteId;
         this.user = user;
         this.recipe = recipe;
+        this.favoriteId = favoriteId;
     }
 
     public int getFavoriteId() {

@@ -26,22 +26,12 @@ public class Recipe {
 
     @Nonnull
     private String recipeInstructions;
-
-    @ManyToOne
-    @JoinColumn(name="userId")
+  
+   @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
     public Recipe() {
-    }
-
-    public Recipe(Recipe recipe){
-        this.recipeId = recipe.recipeId;
-        this.totalSaves = recipe.totalSaves;
-        this.recipeType = recipe.recipeType;
-        this.recipeCountry = recipe.recipeCountry;
-        this.recipeTitle = recipe.recipeTitle;
-        this.recipeInstructions = recipe.recipeInstructions;
-        this.user = recipe.user;
     }
 
     public Recipe(int recipeId, int totalSaves, @Nonnull String recipeType, @Nonnull String recipeCountry, @Nonnull String recipeTitle, @Nonnull String recipeInstructions, User user) {
@@ -106,11 +96,11 @@ public class Recipe {
         this.recipeInstructions = recipeInstructions;
     }
 
-    public User getCreatorId() {
+    public User getUser() {
         return user;
     }
 
-    public void setCreatorId(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

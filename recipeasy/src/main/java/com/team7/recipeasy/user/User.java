@@ -24,15 +24,18 @@ public class User {
     @Nonnull
     private String preference;
 
+    private boolean isActiveUser;
+
     public User() {
     }
 
-    public User(int userId, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference) {
+    public User(int userId, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
         this.userId = userId;
         this.role = role;
         this.email = email;
         this.password = password;
         this.preference = preference;
+        this.isActiveUser = isActiveUser;
     }
 
     public int getUserId() {
@@ -77,5 +80,13 @@ public class User {
 
     public void setPreference(@Nonnull String preference) {
         this.preference = preference;
+    }
+
+    public boolean isActiveUser() {
+        return isActiveUser;
+    }
+
+    public void setActiveUser(boolean activeUser) {
+        isActiveUser = activeUser;
     }
 }
