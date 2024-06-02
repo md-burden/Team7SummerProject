@@ -7,27 +7,26 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "userstats")
+@Table(name="user_stats")
 public class UserStats {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userStatId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Nonnull
     private Timestamp timestamp;
 
-    public UserStats() {
-    }
+    public UserStats() {}
 
     public UserStats(int userStatId, User user, @Nonnull Timestamp timestamp) {
+        this.userStatId = userStatId;
         this.user = user;
         this.timestamp = timestamp;
-        this.userStatId = userStatId;
     }
 
     public int getUserStatId() {
