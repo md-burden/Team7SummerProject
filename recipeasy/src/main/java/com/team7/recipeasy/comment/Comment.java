@@ -4,6 +4,7 @@ package com.team7.recipeasy.comment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 import java.sql.Timestamp;
@@ -27,7 +28,8 @@ public class Comment {
     @Nonnull
     private String commentContents;
 
-    @NonNull
+    @CreationTimestamp
+    @Column(name="post_time", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp postTime;
 
     public Comment() {
