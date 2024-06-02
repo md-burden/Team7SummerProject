@@ -3,6 +3,7 @@ package com.team7.recipeasy.user.userstats;
 import com.team7.recipeasy.user.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -18,6 +19,8 @@ public class UserStats {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @CreationTimestamp
+    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Nonnull
     private Timestamp timestamp;
 

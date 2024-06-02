@@ -38,11 +38,13 @@ public class RecipeService {
         return recipeRepository.findCreatorRecent(userId);
     }
 
-    public void deleteRecipeById(int id){
-        recipeRepository.deleteById(id);
-    }
-
-    public String getRecipeStats(int recipeId){
-        return recipeRepository.getRecipeStats(recipeId);
+    public int getRecipeById(int id){
+        Recipe r = recipeRepository.findById(id).orElse(null);
+        if (r != null){
+            return r.getTotalSaves();
+        }
+        else{
+            return -1;
+        }
     }
 }

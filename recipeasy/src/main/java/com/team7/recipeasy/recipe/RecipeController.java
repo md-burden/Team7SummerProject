@@ -39,13 +39,8 @@ public class RecipeController {
         return recipeService.getRecentCreatorRecipes(userId);
     }
 
-    @GetMapping("/delete")
-    public void deleteRecipe(@RequestParam(value = "recipeId", required = true) int recipeId){
-        recipeService.deleteRecipeById(recipeId);
-    }
-
-    @GetMapping("/recipestats")
-    public String getRecipeStats(@RequestParam(value = "recipeId", required = true) int recipeId){
-        return recipeService.getRecipeStats(recipeId);
+    @GetMapping("/totalSaves/{id}")
+    public int getTotalSavesById(@PathVariable int id){
+        return recipeService.getRecipeById(id);
     }
 }
