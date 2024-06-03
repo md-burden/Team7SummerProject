@@ -1,5 +1,8 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.user.User;
+import com.team7.recipeasy.user.UserRepository;
+import com.team7.recipeasy.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +14,21 @@ public class RecipeService {
     @Autowired
     RecipeRepository recipeRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     /**
      * Saves a new recipe to the database
      * @param recipe
      */
     public void createNewRecipe(Recipe recipe){
+        User user = userRepository.findById(recipe.getUser().getUserId()).orElse(null);
+        recipe = new Recipe(recipe, user);
         recipeRepository.save(recipe);
     }
 
     public void updateRecipe(Recipe recipe){
         recipe = new Recipe(recipe);
-
         recipeRepository.save(recipe);
     }
 
@@ -50,5 +57,9 @@ public class RecipeService {
         else{
             return -1;
         }
+    }
+
+    public void deleteRecipeById(int id){
+        recipeRepository.deleteById(id);
     }
 }

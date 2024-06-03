@@ -1,9 +1,11 @@
 package com.team7.recipeasy.recipe;
 
 import com.team7.recipeasy.user.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,7 +19,7 @@ public class RecipeController {
     UserService userService;
 
     @PostMapping("/create")
-    public Object createNewRecipe(@RequestBody Recipe recipe){
+    public Object  createNewRecipe(@RequestBody Recipe recipe )  {
         recipeService.createNewRecipe(recipe);
         return recipeService.getAllRecipes();
     }
@@ -42,5 +44,11 @@ public class RecipeController {
     @GetMapping("/totalSaves/{id}")
     public int getTotalSavesById(@PathVariable int id){
         return recipeService.getRecipeById(id);
+    }
+
+    @GetMapping("/delete/{id}")
+    public Object deleteRecipe(@PathVariable int id){
+        recipeService.deleteRecipeById(id);
+        return recipeService.getAllRecipes();
     }
 }
