@@ -55,6 +55,19 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(Recipe recipe, User user){
+        this.recipeId = recipe.getRecipeId();
+        this.recipeTitle = recipe.getRecipeTitle();
+        this.recipeType = recipe.getRecipeType();
+        this.time = recipe.getTime();
+        this.yield = recipe.getYield();
+        this.recipeInstructions = recipe.getRecipeInstructions();
+        this.description = recipe.getDescription();
+        this.totalSaves = recipe.getTotalSaves();
+        this.recipeCountry = recipe.getRecipeCountry();
+        this.user = user;
+    }
+
     public Recipe(Recipe recipe) {
         this.recipeId = recipe.getRecipeId();
         this.recipeTitle = recipe.getRecipeTitle();

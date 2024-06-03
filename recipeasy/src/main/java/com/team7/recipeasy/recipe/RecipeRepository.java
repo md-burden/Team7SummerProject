@@ -18,7 +18,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     @Query(value = "SELECT total_saves FROM recipe WHERE recipe_id = :recipeId", nativeQuery = true)
     String getRecipeStats(@Param("recipeId") int recipeId);
 
+    @Query(value = "SELECT * FROM recipe WHERE user_id = :userId", nativeQuery = true)
+    String findAllCreatorRecipe(@Param("userId") int userId);
+  
     @Query(value = "SELECT recipe_id FROM recipe WHERE user_id = ?1", nativeQuery = true)
     List<Integer> getRecipeIdByUserId(int userId);
-
 }
