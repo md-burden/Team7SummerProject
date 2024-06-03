@@ -47,4 +47,7 @@ public class RecipeService {
             return -1;
         }
     }
+    public List<Integer> getRecipeIdByUserId(int userId){
+        return recipeRepository.getRecipeIdByUserId(userId);
+    }
 }
