@@ -53,5 +53,4 @@ public class UserController {
     public int getBannedUserCount(){
         return userService.getBannedUserCount();
     }
-
 }

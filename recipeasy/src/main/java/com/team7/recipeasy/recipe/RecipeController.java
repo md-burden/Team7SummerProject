@@ -30,6 +30,11 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @GetMapping("/all")
+    public Object findAllRecipes(){
+        return recipeService.getAllRecipes();
+    }
+
     @GetMapping("/all/{id}")
     public Object getAllRecipes(@PathVariable int id){
         return recipeService.getAllRecipesByCreatorId(id);

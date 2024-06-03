@@ -29,6 +29,15 @@ public class User {
     public User() {
     }
 
+    public User(User user){
+        this.userId = user.userId;
+        this.role = user.role;
+        this.email = user.email;
+        this.password = user.password;
+        this.preference = user.preference;
+        this.isActiveUser = isActiveUser();
+    }
+
     public User(int userId, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
         this.userId = userId;
         this.role = role;
