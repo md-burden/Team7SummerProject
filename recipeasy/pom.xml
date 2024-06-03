@@ -8,11 +8,12 @@
 		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.team7</groupId>
 	<artifactId>recipeasy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>recipeasy</name>
-	<description>Recipeasy web app</description>
+	<description>Recipeasy web app!</description>
 	<properties>
 		<java.version>22</java.version>
 	</properties>
