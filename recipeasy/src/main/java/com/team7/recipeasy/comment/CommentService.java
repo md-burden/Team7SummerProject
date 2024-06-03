@@ -32,7 +32,6 @@ public class CommentService {
     }
     public void removeCommentInfo(int id){
         Comment comment = fetchCommentById(id);
-        comment.setCommenterId(-1);
         comment.setCommentContents("Comment removed by Admin");
         commentRepository.save(comment);
     }
@@ -42,6 +41,14 @@ public class CommentService {
         commentRepository.deleteById(comment.getConnectedId());
         commentRepository.deleteById(comment.getCommentId());
 
+    }
+
+    public int getCommentCountByRecipe(int recipeId){
+        return commentRepository.getCommentCountByRecipe(recipeId);
+    }
+
+    public int getCommentCountByUser(int userId){
+        return commentRepository.getCommentCountByUser(userId);
     }
 
 }

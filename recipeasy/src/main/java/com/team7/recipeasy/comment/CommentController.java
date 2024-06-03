@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/comments")
 public class CommentController {
 
@@ -39,7 +39,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/removeInfo/{id}")
-    public void removeCommentInfo(int id){
+    public void removeCommentInfo(@PathVariable int id){
         commentService.removeCommentInfo(id);
     }
 
@@ -51,6 +51,16 @@ public class CommentController {
     @DeleteMapping("/deleteBlock/{id}")
     public void deleteCommentBlock(@PathVariable int id){
         commentService.deleteCommentReplyBlock(id);
+    }
+
+    @GetMapping("/stats/totalCommentsByUser/{id}")
+    public int getTotalCommentCountByUser(@PathVariable int id){
+        return commentService.getCommentCountByUser(id);
+    }
+
+    @GetMapping("/stats/totalCommentsByRecipe/{id}")
+    public int getTotalCommentCountByRecipe(@PathVariable int id){
+        return commentService.getCommentCountByRecipe(id);
     }
 
 }

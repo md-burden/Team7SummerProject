@@ -38,4 +38,8 @@ public class UserService {
     public void saveUser(User user){
         userRepository.save(user);
     }
+
+    public int getBannedUserCount(){
+        return userRepository.getTotalBannedUserCount();
+    }
 }

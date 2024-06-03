@@ -58,8 +58,12 @@ public class RecipeService {
             return -1;
         }
     }
-
-    public void deleteRecipeById(int id){
+  
+     public void deleteRecipeById(int id){
         recipeRepository.deleteById(id);
+    }
+
+    public List<Integer> getRecipeIdByUserId(int userId){
+        return recipeRepository.getRecipeIdByUserId(userId);
     }
 }

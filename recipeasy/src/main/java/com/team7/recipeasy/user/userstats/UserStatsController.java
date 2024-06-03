@@ -10,6 +10,11 @@ public class UserStatsController {
     @Autowired
     UserStatsService statsService;
 
+    @GetMapping("/loginCount")
+    public int getCurrentLoginCount(){
+        return statsService.getCurrentLoginCount();
+    }
+
     @PostMapping("/login")
     public void logInStats(@RequestBody UserStats u){
         statsService.saveUserStats(u);
