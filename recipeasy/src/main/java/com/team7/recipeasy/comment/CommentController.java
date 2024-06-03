@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/comments")
 public class CommentController {
 
@@ -39,7 +39,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/removeInfo/{id}")
-    public void removeCommentInfo(int id){
+    public void removeCommentInfo(@PathVariable int id){
         commentService.removeCommentInfo(id);
     }
 

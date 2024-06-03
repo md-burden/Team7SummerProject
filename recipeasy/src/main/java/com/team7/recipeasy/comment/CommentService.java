@@ -32,7 +32,6 @@ public class CommentService {
     }
     public void removeCommentInfo(int id){
         Comment comment = fetchCommentById(id);
-        comment.setCommenterId(-1);
         comment.setCommentContents("Comment removed by Admin");
         commentRepository.save(comment);
     }

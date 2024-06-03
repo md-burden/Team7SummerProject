@@ -1,6 +1,8 @@
 
 package com.team7.recipeasy.comment;
 
+import com.team7.recipeasy.recipe.Recipe;
+import com.team7.recipeasy.user.User;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -17,13 +19,15 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int commentId;
 
-    @Nonnull
-    private int recipeId;
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 
     private int connectedId;
 
-    @Nonnull
-    private int commenterId;
+    @ManyToOne
+    @JoinColumn(name = "commenter_id")
+    private User commenter;
 
     @Nonnull
     private String commentContents;
@@ -35,10 +39,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int commentId, int recipeId, int commenterId, int connectedId, @Nonnull String commentContents, @NonNull Timestamp postTime) {
+    public Comment(int commentId, Recipe recipe, User commenter, int connectedId, @Nonnull String commentContents, @NonNull Timestamp postTime) {
         this.commentId = commentId;
-        this.recipeId = recipeId;
-        this.commenterId = commenterId;
+        this.recipe = recipe;
+        this.commenter = commenter;
         this.commentContents = commentContents;
         this.postTime = postTime;
         this.connectedId = connectedId;
@@ -60,20 +64,20 @@ public class Comment {
         this.commentId = commentId;
     }
 
-    public int getRecipeId() {
-        return recipeId;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
-    public int getCommenterId() {
-        return commenterId;
+    public User getCommenter() {
+        return commenter;
     }
 
-    public void setCommenterId(int commenterId) {
-        this.commenterId = commenterId;
+    public void setCommenter(User commenter) {
+        this.commenter = commenter;
     }
 
     @Nonnull
