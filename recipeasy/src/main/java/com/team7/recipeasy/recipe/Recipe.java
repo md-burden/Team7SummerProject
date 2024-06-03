@@ -65,6 +65,7 @@ public class Recipe {
         this.description = recipe.getDescription();
         this.totalSaves = recipe.getTotalSaves();
         this.recipeCountry = recipe.getRecipeCountry();
+        this.ingredients = recipe.getIngredients();
         this.user = user;
     }
 
