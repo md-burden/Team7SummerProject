@@ -48,4 +48,10 @@ public class UserController {
     public int getActiveUserCountByAcctType(@RequestBody Role r){
         return userService.getActiveUserCountByAcctType(r);
     }
+
+    @GetMapping("/stats/getBannedCount")
+    public int getBannedUserCount(){
+        return userService.getBannedUserCount();
+    }
+
 }
