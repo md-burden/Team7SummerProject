@@ -3,11 +3,12 @@ package com.team7.recipeasy.user;
 import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -52,5 +53,10 @@ public class UserController {
     @GetMapping("/stats/getBannedCount")
     public int getBannedUserCount(){
         return userService.getBannedUserCount();
+    }
+
+    @GetMapping("/ADMIN/home")
+    public String getAdminHomePage(Model model){
+        return "Admin/AdminHome";
     }
 }
