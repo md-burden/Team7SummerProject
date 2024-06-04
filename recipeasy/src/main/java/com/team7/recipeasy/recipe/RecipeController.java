@@ -1,14 +1,13 @@
 package com.team7.recipeasy.recipe;
 
 import com.team7.recipeasy.user.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/recipe")
 public class RecipeController {
 
@@ -17,6 +16,11 @@ public class RecipeController {
 
     @Autowired
     UserService userService;
+
+    @GetMapping("/test")
+    public String newRecipePage(){
+        return "User/Favorites";
+    }
 
     @PostMapping("/create")
     public Object  createNewRecipe(@RequestBody Recipe recipe )  {
