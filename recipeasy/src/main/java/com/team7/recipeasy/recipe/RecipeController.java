@@ -25,10 +25,10 @@ public class RecipeController {
     }
 
     @PostMapping("/create")
-    public String  createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam(name="userId", required = true)int userId)  {
-        recipeService.createNewRecipe(recipe);
+    public String  createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam(name="userId", required = true) int userId)  {
+        recipeService.createNewRecipe(recipe, userId);
         // TODO: Switch to RecipePage but I'm being lazy for the moment
-        return "Creator/CreatorHomePage";
+        return "redirect:/recipe/recent?userId=" + userId;
     }
 
     @PostMapping("/update")

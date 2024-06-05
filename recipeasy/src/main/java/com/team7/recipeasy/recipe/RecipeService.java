@@ -21,8 +21,8 @@ public class RecipeService {
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe){
-        User user = userRepository.findById(recipe.getUser().getUserId()).orElse(null);
+    public void createNewRecipe(Recipe recipe, int userId){
+        User user = userRepository.findById(userId).orElse(null);
         recipe = new Recipe(recipe, user);
         recipeRepository.save(recipe);
     }
