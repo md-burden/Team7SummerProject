@@ -36,6 +36,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+
     @PutMapping("/ban/{id}")
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
@@ -55,8 +56,4 @@ public class UserController {
         return userService.getBannedUserCount();
     }
 
-    @GetMapping("/ADMIN/home")
-    public String getAdminHomePage(Model model){
-        return "Admin/AdminHome";
-    }
 }

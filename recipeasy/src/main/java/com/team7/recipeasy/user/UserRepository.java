@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
@@ -15,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     @Query(value = "SELECT COUNT(user_id) FROM user WHERE is_active_user = 0", nativeQuery = true)
     int getTotalBannedUserCount();
+
+    @Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
+    Optional<User> getUserByUsername(String username);
 }
