@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Admin Stats Page</title>
@@ -38,13 +38,15 @@
             <div class="card-body">
                 <h3 style="text-align: center">User Statistics</h3>
                 <h4>Total Users:</h4>
-                <p>000</p>
+                <p th:text="${userCount}"></p>
                 <h4>Total Creators:</h4>
-                <p>000</p>
-                <h4>Users Currently Logged in:</h4>
-                <p>000</p>
-                <h4>Creators Currently Logged in:</h4>
-                <p>000</p>
+                <p th:text="${creatorCount}"></p>
+                <h4>Total Admin:</h4>
+                <p th:text="${adminCount}"></p>
+                <h4>Total Banned Members:</h4>
+                <p th:text="${bannedCount}"></p>
+                <h4>Members Currently Logged in:</h4>
+                <p th:text="${currentCount}"></p>
             </div>
 
         </div>
@@ -57,15 +59,23 @@
                     <!---Search by Creator--->
                     <div style="display: flex; flex-direction:column; justify-content:space-evenly; align-items: flex-start; gap:18px; margin:20px;">
                         <div style="display: flex; flex-direction:row; justify-content:flex-end; align-items: flex-start;">
-                            <div class="container">
+                            <div class="dropdown">
+
+                            </div>
+                            <div class="container" data-bs-toggle="dropdown">
 
                                 <div class="row height d-flex justify-content-center align-items-center">
 
                                     <div class="col-md-36">
+                                        <div class="dropdown">
+                                            <div class="form">
+                                                <i class="fa fa-search"></i>
+                                                <input type="text" class="form-control form-input" placeholder="Search Creator..." style="min-width:350px;">
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                                </ul>
 
-                                        <div class="form">
-                                            <i class="fa fa-search"></i>
-                                            <input type="text" class="form-control form-input" placeholder="Search Creator..." style="min-width:350px;">
+                                            </div>
 
                                         </div>
                                     </div>

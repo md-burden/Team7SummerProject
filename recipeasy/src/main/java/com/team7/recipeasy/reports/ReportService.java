@@ -3,6 +3,7 @@ package com.team7.recipeasy.reports;
 import com.team7.recipeasy.comment.Comment;
 import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.constants.ReportOptions;
+import com.team7.recipeasy.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,15 @@ public class ReportService {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    UserService userService;
+
     public List<Report> getAllReports(){
         return reportRepository.findAll();
+    }
+
+    public Report findReportById(int id){
+        return reportRepository.findById(id).orElse(null);
     }
 
     public void deleteReportById(int id){
@@ -59,10 +67,15 @@ public class ReportService {
                 commentService.deleteCommentReplyBlock(commentId);
                 break;
 
+            case REMOVE_TEXT_AND_BAN:
+                commentService.removeCommentInfo(commentId);
+                userService.BanUserById(c.getCommenter().getUserId());
+                break;
+
             //Deletes comment/reply block and bans user
             case DELETE_BLOCK_AND_BAN:
                 commentService.deleteCommentReplyBlock(commentId);
-                //Add deleteUser method here!!!
+                userService.BanUserById(c.getCommenter().getUserId());
                 break;
             //Does nothing in case of false report
             case FALSE_REPORT:

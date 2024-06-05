@@ -34,8 +34,8 @@ xmlns:th="http://www.thymeleaf.org">
             </button>
         </a>
     </div>
-    <div style="display: flex; flex-direction:row; justify-content:space-evenly; align-items: flex-start; gap:80px;">
-        <a href="AdminReportsPage.html" class="card" style="width: 24rem; text-decoration:none;">
+    <div style="display: flex; flex-direction:row; justify-content:space-evenly; align-items: flex-start; gap:50px;">
+        <a th:href="@{/ADMIN/reports}" class="card" style="width: 24rem; text-decoration:none;">
             <div class="card-body">
                 <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">Report Center</h3>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
@@ -49,7 +49,7 @@ xmlns:th="http://www.thymeleaf.org">
                 </ul>
             </div>
         </a>
-        <a href="AdminStatsPage.html" class="card" style="width: 24rem; text-decoration:none;">
+        <a th:href="@{/ADMIN/stats}" class="card" style="width: 24rem; text-decoration:none;">
             <div class="card-body">
                 <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">Statistics Center</h3>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
@@ -68,6 +68,22 @@ xmlns:th="http://www.thymeleaf.org">
                 </ul>
             </div>
         </a>
+        <!---User Account Center?
+        <a th:href="@{/ADMIN/accounts}" class="card" style="width: 24rem; text-decoration:none;">
+            <div class="card-body">
+                <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">User Account Center</h3>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                    Use the Account Center to:
+                </h6>
+                <ul class="card-subtitle mb-2 text-body-secondary" style="list-style-type:circle">
+                    <li>View all Users and Creators</li>
+                    <li>Edit User and Creator Accounts</li>
+                    <li>Ban Accounts</li>
+                    <li>Delete Accounts</li>
+
+                </ul>
+            </div>
+        </a> --->
     </div>
 </div>
 </body>
