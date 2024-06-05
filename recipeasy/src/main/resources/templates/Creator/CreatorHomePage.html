@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title>Creator Home Page</title>
@@ -9,9 +10,16 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 
 </head>
+
 <body style="background:#FAF4DF">
+
+<!-- Begin Nav Bar -->
 <div style="display: flex; flex-direction:column; justify-content:flex-start; align-items: center;">
+
+
+<!-- Begin Nav Bar -->
     <div class="container-fluid" ID="Banner">
+
         <a href="CreatorHomePage.html">
             <button class="btn" id="HomeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="display: inline;" class="bi bi-house" viewBox="0 0 16 16">
@@ -19,6 +27,7 @@
                 </svg>
             </button>
         </a>
+
         <a href="RecipeCreationPage.html">
             <button class="btn" id="NewRecipeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -36,6 +45,7 @@
                 </svg>
             </button>
         </a>
+
         <a href="CreatorProfilePage.html">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -46,106 +56,41 @@
         </a>
 
     </div>
+<!--End Banner -->
 
-    <div>
+
+    <div style="flex-grow:1; width: 100%;">
         <h5 style="margin:30px">My Recent Recipes</h5>
-        <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap:20px;">
-            <a href="CreatorRecipePage.html" class="card" style="width: 18rem; text-decoration:none;">
-                <!---Image(resizes with card width)--->
-                <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
-                <div class="card-body">
-                    <!---Title--->
-                    <h5 class="card-title">Strawberries Romanoff</h5>
-                    <div style="display:flex; flex-direction: row; justify-content: space-between;">
-                        <div>
-                            <!---Country--->
-                            <h6 class="card-subtitle" style="margin:0px 0px 10px 0px">Russia</h6>
-                            <!---Category--->
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Dessert</h6>
-                        </div>
-                        <div>
-                            <button class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </a>
 
-            <a href="#" class="card" style="width: 18rem; text-decoration:none;">
-                <!---Image(resizes with card width)--->
-                <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
-                <div class="card-body">
-                    <!---Title--->
-                    <h5 class="card-title">Strawberries Romanoff</h5>
-                    <div style="display:flex; flex-direction: row; justify-content: space-between;">
-                        <div>
-                            <!---Country--->
-                            <h6 class="card-subtitle" style="margin:0px 0px 10px 0px">Russia</h6>
-                            <!---Category--->
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Dessert</h6>
-                        </div>
-                        <div>
-                            <button class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                                </svg>
-                            </button>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: start; gap:20px; width:100%; margin: 20px;">
+            <div class="col-m-1" th:each="recent :${recentsList}">
+                <a href="CreatorRecipePage.html" class="card" style="width: 18rem; text-decoration:none;">
+                    <!---Image(resizes with card width)--->
+                    <img class="card-img-top" th:src="${recent.recipeImage}"  alt="" style="border:10px solid white;">
+                    <div class="card-body">
+                        <!---Title--->
+                        <h5 class="card-title" th:text="${recent.recipeTitle}"></h5>
+                        <div style="display:flex; flex-direction: row; justify-content: space-between;">
+                            <div>
+                                <!---Country--->
+                                <h6 class="card-subtitle" style="margin:0px 0px 10px 0px" th:text="${recent.recipeCountry}"></h6>
+                                <!---Category--->
+                                <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${recent.recipeType}"></h6>
+                            </div>
+                            <div>
+                                <button class="btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
 
-            <a href="#" class="card" style="width: 18rem; text-decoration:none;">
-                <!---Image(resizes with card width)--->
-                <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
-                <div class="card-body">
-                    <!---Title--->
-                    <h5 class="card-title">Strawberries Romanoff</h5>
-                    <div style="display:flex; flex-direction: row; justify-content: space-between;">
-                        <div>
-                            <!---Country--->
-                            <h6 class="card-subtitle" style="margin:0px 0px 10px 0px">Russia</h6>
-                            <!---Category--->
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Dessert</h6>
-                        </div>
-                        <div>
-                            <button class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="card" style="width: 18rem; text-decoration:none;">
-                <!---Image(resizes with card width)--->
-                <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
-                <div class="card-body">
-                    <!---Title--->
-                    <h5 class="card-title">Strawberries Romanoff</h5>
-                    <div style="display:flex; flex-direction: row; justify-content: space-between;">
-                        <div>
-                            <!---Country--->
-                            <h6 class="card-subtitle" style="margin:0px 0px 10px 0px">Russia</h6>
-                            <!---Category--->
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Dessert</h6>
-                        </div>
-                        <div>
-                            <button class="btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </a>
         </div>
+
     </div>
 </div>
 </body>

@@ -3,6 +3,7 @@ package com.team7.recipeasy.recipe;
 import com.team7.recipeasy.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,15 +18,17 @@ public class RecipeController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/test")
-    public String newRecipePage(){
-        return "User/Favorites";
+    @GetMapping("/create")
+    public String newRecipePage(@RequestParam(name="userId", required = true)int userId, Model model){
+        model.addAttribute("userId", userId);
+        return "Creator/RecipeCreationPage";
     }
 
     @PostMapping("/create")
-    public Object  createNewRecipe(@RequestBody Recipe recipe )  {
+    public String  createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam(name="userId", required = true)int userId)  {
         recipeService.createNewRecipe(recipe);
-        return recipeService.getAllRecipes();
+        // TODO: Switch to RecipePage but I'm being lazy for the moment
+        return "Creator/CreatorHomePage";
     }
 
     @PostMapping("/update")
@@ -41,8 +44,9 @@ public class RecipeController {
 
 
     @GetMapping("/recent")
-    public List<Recipe> getRecentRecipes(@RequestParam(value = "userId", required = true) int userId){
-        return recipeService.getRecentCreatorRecipes(userId);
+    public String getRecentRecipes(@RequestParam(value = "userId", required = true) int userId, Model model){
+        model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(userId));
+        return "Creator/CreatorHomePage";
     }
 
     @GetMapping("/totalSaves/{id}")

@@ -13,12 +13,16 @@ import java.util.List;
 @Table(name = "recipe")
 public class Recipe {
 
+    final String placeholserUri = "https://placehold.jp/52/aaa4a8/ffffff/700x700.png?text=No%20Recipe%20Image";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int recipeId;
 
     @Nonnull
     private String recipeTitle;
+
+    private String recipeImage;
 
     @Nonnull
     private String recipeType;
@@ -66,11 +70,19 @@ public class Recipe {
         this.totalSaves = recipe.getTotalSaves();
         this.recipeCountry = recipe.getRecipeCountry();
         this.user = user;
+
+        if(recipe.getRecipeImage() == null){
+            this.recipeImage = placeholserUri;
+        }
+        else{
+            this.recipeImage = recipe.recipeImage;
+        }
     }
 
     public Recipe(Recipe recipe) {
         this.recipeId = recipe.getRecipeId();
         this.recipeTitle = recipe.getRecipeTitle();
+        this.recipeImage = recipe.getRecipeImage();
         this.recipeType = recipe.getRecipeType();
         this.time = recipe.getTime();
         this.yield = recipe.getYield();
@@ -82,9 +94,10 @@ public class Recipe {
         this.user = recipe.getUser();
     }
 
-    public Recipe(int recipeId, @Nonnull String recipeTitle, @Nonnull String recipeType, double time, double yield, @Nonnull String recipeInstructions, int totalSaves, @Nonnull String recipeCountry, User user, List<Ingredient> ingredients, @Nonnull String description) {
+    public Recipe(int recipeId, @Nonnull String recipeTitle, String recipeImage, @Nonnull String recipeType, double time, double yield, @Nonnull String recipeInstructions, int totalSaves, @Nonnull String recipeCountry, User user, List<Ingredient> ingredients, @Nonnull String description) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
+        this.recipeImage = recipeImage;
         this.recipeType = recipeType;
         this.time = time;
         this.yield = yield;
@@ -112,6 +125,10 @@ public class Recipe {
     public void setRecipeTitle(@Nonnull String recipeTitle) {
         this.recipeTitle = recipeTitle;
     }
+
+    public String getRecipeImage() {return recipeImage;}
+
+    public void setRecipeImage(String recipeImage) {this.recipeImage = recipeImage;}
 
     @Nonnull
     public String getRecipeType() {
