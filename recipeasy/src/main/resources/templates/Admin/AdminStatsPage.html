@@ -13,7 +13,7 @@
 <body style="background:#FAF4DF">
 <div style="display: flex; flex-direction:column; justify-content:flex-start; align-items: center; gap:20px;">
     <div class="container-fluid" ID="Banner">
-        <a href="AdminHome.html">
+        <a th:href="@{/ADMIN/home}">
             <button class="btn" id="HomeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="display: inline;" class="bi bi-house" viewBox="0 0 16 16">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
@@ -59,33 +59,22 @@
                     <!---Search by Creator--->
                     <div style="display: flex; flex-direction:column; justify-content:space-evenly; align-items: flex-start; gap:18px; margin:20px;">
                         <div style="display: flex; flex-direction:row; justify-content:flex-end; align-items: flex-start;">
-                            <div class="dropdown">
-
-                            </div>
-                            <div class="container" data-bs-toggle="dropdown">
-
-                                <div class="row height d-flex justify-content-center align-items-center">
-
-                                    <div class="col-md-36">
-                                        <div class="dropdown">
+                            <form action="/user/getUsersFromSearch" method="post">
+                                <div class="container">
+                                    <div class="row height d-flex justify-content-center align-items-center">
+                                        <div class="col-md-36">
                                             <div class="form">
                                                 <i class="fa fa-search"></i>
-                                                <input type="text" class="form-control form-input" placeholder="Search Creator..." style="min-width:350px;">
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                </ul>
-
+                                                <input type="text" class="form-control form-input" id="term" name="term" placeholder="Search Creator..." style="min-width:350px;">
                                             </div>
-
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
 
-                            <button type="button" class="btn btn-primary">Search</button>
+                            </form>
                         </div>
-                        <h6>Username: @User53465463</h6>
+                        <h6 ></h6> <!---th:text="${user.username}"--->
                         <h6>Total Saves: 000</h6>
                         <h6>Total Comments: 000</h6>
                         <h6>Recent Saves: 000</h6>
@@ -115,7 +104,7 @@
 
                             <button type="button" class="btn btn-primary">Search</button>
                         </div>
-                        <h6>Recipe Name: Strawberries Romanoff</h6>
+                        <h6 ></h6> <!---th:text="${recipe.recipeTitle}"--->
                         <h6>Total Saves: 000</h6>
                         <h6>Total Comments: 000</h6>
                         <h6>Recent Saves: 000</h6>

@@ -19,4 +19,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     @Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
     Optional<User> getUserByUsername(String username);
+
+    @Query(value = "Select * FROM user WHERE username like %?1% limit 5", nativeQuery = true)
+    List<User> getUsersBySearch(String username);
+
+
 }

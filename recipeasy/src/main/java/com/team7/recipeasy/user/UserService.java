@@ -47,4 +47,10 @@ public class UserService {
     public int getBannedUserCount(){
         return userRepository.getTotalBannedUserCount();
     }
+
+    public List<User> getUsersFromSearch(String term) {
+        System.out.println("term " + term);
+        System.out.println(userRepository.getUsersBySearch(term).toString());
+        return userRepository.getUsersBySearch(term);
+    }
 }
