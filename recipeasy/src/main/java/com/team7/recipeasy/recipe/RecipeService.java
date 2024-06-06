@@ -45,7 +45,7 @@ public class RecipeService {
      * @param userId
      * @return
      */
-    public List<Recipe> getRecentCreatorRecipes(int userId){
+    public Object getRecentCreatorRecipes(int userId){
         return recipeRepository.findCreatorRecent(userId);
     }
 
@@ -63,7 +63,7 @@ public class RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<Integer> getRecipeIdByUserId(int userId){
-        return recipeRepository.getRecipeIdByUserId(userId);
+    public int getRecipeCountByUserId(int userId){
+        return recipeRepository.getRecipeCountByUserId(userId);
     }
 }

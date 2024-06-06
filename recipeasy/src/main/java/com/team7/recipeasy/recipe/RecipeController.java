@@ -15,9 +15,6 @@ public class RecipeController {
     @Autowired
     RecipeService recipeService;
 
-    @Autowired
-    UserService userService;
-
     @GetMapping("/create")
     public String newRecipePage(@RequestParam(name="userId", required = true)int userId, Model model){
         model.addAttribute("userId", userId);
@@ -37,9 +34,10 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
-    @GetMapping("/all/{id}")
-    public Object getAllRecipes(@PathVariable int id){
-        return recipeService.getAllRecipesByCreatorId(id);
+    @GetMapping("/all")
+    public String getAllRecipes(@RequestParam(name = "userId", required = true) int userId, Model model){
+        model.addAttribute("recipes", recipeService.getAllRecipesByCreatorId(userId));
+        return "Creator/CreatorRecipes";
     }
 
 
@@ -47,6 +45,12 @@ public class RecipeController {
     public String getRecentRecipes(@RequestParam(value = "userId", required = true) int userId, Model model){
         model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(userId));
         return "Creator/CreatorHomePage";
+    }
+
+    @GetMapping("")
+    public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
+        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
+        return "Creator/CreatorRecipePage";
     }
 
     @GetMapping("/totalSaves/{id}")
