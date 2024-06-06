@@ -49,7 +49,11 @@ public class RecipeService {
         return recipeRepository.findCreatorRecent(userId);
     }
 
-    public int getRecipeById(int id){
+    public Recipe getRecipeById(int id){
+        return recipeRepository.findById(id).orElse(null);
+    }
+
+    public int getRecipeCountById(int id){
         Recipe r = recipeRepository.findById(id).orElse(null);
         if (r != null){
             return r.getTotalSaves();

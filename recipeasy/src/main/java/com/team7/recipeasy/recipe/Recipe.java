@@ -1,19 +1,24 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.constants.RecipeConstants;
 import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import com.team7.recipeasy.user.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
-
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.util.List;
 
 @Entity
 @Table(name = "recipe")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Recipe {
-
-    final String placeholserUri = "https://placehold.jp/52/aaa4a8/ffffff/700x700.png?text=No%20Recipe%20Image";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,16 +29,20 @@ public class Recipe {
 
     private String recipeImage;
 
+    @NonNull
+    private String recipeCountry;
+
     @Nonnull
     private String recipeType;
 
     @Nonnull
-    private double time;
+    private String time;
 
     @NonNull
-    private double yield;
+    private String yield;
 
     @Nonnull
+    @Column(columnDefinition = "LONGTEXT")
     private String recipeInstructions;
 
     @Nonnull
@@ -49,16 +58,15 @@ public class Recipe {
     @Nonnull
     private int totalSaves;
 
-    @Nonnull
-    private String recipeCountry;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Recipe() {
-    }
-
+    /**
+     * Used to update a users recipe
+     * @param recipe
+     * @param user
+     */
     public Recipe(Recipe recipe, User user){
         this.recipeId = recipe.getRecipeId();
         this.recipeTitle = recipe.getRecipeTitle();
@@ -72,17 +80,22 @@ public class Recipe {
         this.user = user;
 
         if(recipe.getRecipeImage() == null){
-            this.recipeImage = placeholserUri;
+            this.recipeImage = RecipeConstants.placeholder;
         }
         else{
             this.recipeImage = recipe.recipeImage;
         }
     }
 
+    /**
+     * Used to create a new recipe
+     * @param recipe
+     */
     public Recipe(Recipe recipe) {
         this.recipeId = recipe.getRecipeId();
         this.recipeTitle = recipe.getRecipeTitle();
         this.recipeImage = recipe.getRecipeImage();
+        this.recipeCountry = recipe.getRecipeCountry();
         this.recipeType = recipe.getRecipeType();
         this.time = recipe.getTime();
         this.yield = recipe.getYield();
@@ -90,119 +103,6 @@ public class Recipe {
         this.description = recipe.getDescription();
         this.ingredients = recipe.getIngredients();
         this.totalSaves = recipe.getTotalSaves();
-        this.recipeCountry = recipe.getRecipeCountry();
         this.user = recipe.getUser();
-    }
-
-    public Recipe(int recipeId, @Nonnull String recipeTitle, String recipeImage, @Nonnull String recipeType, double time, double yield, @Nonnull String recipeInstructions, int totalSaves, @Nonnull String recipeCountry, User user, List<Ingredient> ingredients, @Nonnull String description) {
-        this.recipeId = recipeId;
-        this.recipeTitle = recipeTitle;
-        this.recipeImage = recipeImage;
-        this.recipeType = recipeType;
-        this.time = time;
-        this.yield = yield;
-        this.recipeInstructions = recipeInstructions;
-        this.totalSaves = totalSaves;
-        this.recipeCountry = recipeCountry;
-        this.user = user;
-        this.ingredients = ingredients;
-        this.description = description;
-    }
-
-    public int getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    @Nonnull
-    public String getRecipeTitle() {
-        return recipeTitle;
-    }
-
-    public void setRecipeTitle(@Nonnull String recipeTitle) {
-        this.recipeTitle = recipeTitle;
-    }
-
-    public String getRecipeImage() {return recipeImage;}
-
-    public void setRecipeImage(String recipeImage) {this.recipeImage = recipeImage;}
-
-    @Nonnull
-    public String getRecipeType() {
-        return recipeType;
-    }
-
-    public void setRecipeType(@Nonnull String recipeType) {
-        this.recipeType = recipeType;
-    }
-
-    public double getTime() {
-        return time;
-    }
-
-    public void setTime(double time) {
-        this.time = time;
-    }
-
-    public double getYield() {
-        return yield;
-    }
-
-    public void setYield(double yield) {
-        this.yield = yield;
-    }
-
-    @Nonnull
-    public String getRecipeInstructions() {
-        return recipeInstructions;
-    }
-
-    public void setRecipeInstructions(@Nonnull String recipeInstructions) {
-        this.recipeInstructions = recipeInstructions;
-    }
-
-    @Nonnull
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(@Nonnull String description) {
-        this.description = description;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public int getTotalSaves() {
-        return totalSaves;
-    }
-
-    public void setTotalSaves(int totalSaves) {
-        this.totalSaves = totalSaves;
-    }
-
-    @Nonnull
-    public String getRecipeCountry() {
-        return recipeCountry;
-    }
-
-    public void setRecipeCountry(@Nonnull String recipeCountry) {
-        this.recipeCountry = recipeCountry;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

@@ -38,7 +38,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/recipe/all?userId=1}">
+        <a data-th-href="@{/recipe/creator/all?userId=1}">
             <button class="btn" id="FavoritesButton">
                 <svg xmlns="http://www.w3.org/2000/svg" height=32 width=32 fill="currentColor" class="bi bi-heart-fill"
                      viewBox="0 0 16 16">
@@ -58,18 +58,19 @@
                 </svg>
             </button>
         </a>
-
     </div>
-    <!--End Banner -->
+</div>
+<!--End Banner -->
 
-    <form action="#" th:action="@{/recipe/create?userId=1 (id=${userId})}" method="post">
+<form action="#" th:action="@{/recipe/create?userId=1 (id=${userId})}" method="post">
 
-        <div style="margin: 10px">
+    <div style="margin: 10px">
 
-            <div class="container-fluid text-start mt-3">
-                <div class="row justify-content-between">
-                    <div class="col-8">
+        <div class="container-fluid text-start mt-3">
+            <div class="row justify-content-between">
+                <div class="col-8">
 
+                    <div class="row">
                         <!-- Name Form -->
                         <div class="col mb-4">
                             <label for="recipeTitle" class="form-label fww-bold">Name:</label>
@@ -78,88 +79,126 @@
                                    aria-label="Name">
                         </div>
 
-                        <!-- Row: Time Yield Category -->
-                        <div class="row">
-                            <!-- Recipe Time -->
-                            <div class="col">
-                                <label for="time" class="form-label">Time:</label>
-                                <input id="time" name="time" type="text" class="form-control" placeholder="Time *"
-                                       aria-label="Time">
-                            </div>
-                            <!-- Recipe Yield -->
-                            <div class="col">
-                                <label for="yield" class="form-label">Yield:</label>
-                                <input id="yield" name="yield" type="text" class="form-control" placeholder="Yield *"
-                                       aria-label="Yield">
-                            </div>
-                            <!-- Recipe Category -->
-                            <div class="col">
-                                <label for="recipeType" class="form-label">Category:</label>
-                                <input id="recipeType" name="recipeType" type="text" class="form-control"
-                                       placeholder="Category *"
-                                       aria-label="Category">
-                            </div>
-
+                        <div class="col mb-4">
+                            <label for="recipeCountry" class="form-label fww-bold">Country:</label>
+                            <input id="recipeCountry" name="recipeCountry" type="text" class="form-control"
+                                   placeholder="Country *"
+                                   aria-label="Country">
                         </div>
                     </div>
 
 
-                    <!-- Recipe Image -->
-                    <!-- TODO: How can I dynamically update the image when a user inputs a URI? -->
-                    <div class="col-auto">
-                        <div class="container">
-                            <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" alt="..."
-                                 id="RecipePhoto">
+
+                    <!-- Row: Time Yield Category -->
+                    <div class="row">
+                        <!-- Recipe Time -->
+                        <div class="col">
+                            <label for="time" class="form-label">Time:</label>
+                            <input id="time" name="time" type="text" class="form-control" placeholder="Time *"
+                                   aria-label="Time">
                         </div>
+                        <!-- Recipe Yield -->
+                        <div class="col">
+                            <label for="yield" class="form-label">Yield:</label>
+                            <input id="yield" name="yield" type="text" class="form-control" placeholder="Yield *"
+                                   aria-label="Yield">
+                        </div>
+                        <!-- Recipe Category -->
+                        <div class="col">
+                            <label for="recipeType" class="form-label">Category:</label>
+                            <input id="recipeType" name="recipeType" type="text" class="form-control"
+                                   placeholder="Category *"
+                                   aria-label="Category">
+                        </div>
+
                     </div>
                 </div>
 
 
-            </div>
-            <div class="container-fluid text-start">
-                <div class="row align-items-start gx-5 mb-3">
-
-                    <!-- Instructions Text Area -->
-                    <div class="col">
-                        <label for="recipeInstructions" class="form-label">Instructions:</label>
-                        <textarea class="form-control" id="recipeInstructions" name="recipeInstructions"
-                                  placeholder="Your instructions here... *"
-                                  rows="5"></textarea>
+                <!-- Recipe Image -->
+                <!-- TODO: How can I dynamically update the image when a user inputs a URI? -->
+                <div class="col-auto">
+                    <div class="container">
+                        <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" alt="..."
+                             id="RecipePhoto">
                     </div>
-
-                    <!-- Description Text Area -->
-                    <div class="col">
-                        <label for="description" class="form-label">Description (Optional):</label>
-                        <textarea class="form-control" id="description" name="description" rows="5"></textarea>
-                    </div>
-
                 </div>
             </div>
 
 
-            <!-- TODO: How to dynamically add ingredients to Recipe's `ingredients` attribute? -->
-            <div style="margin: 0 10px 0 10px">
-                <!-- Container to hold created ingredients fields -->
-                <div id="inputFields">
+        </div>
+        <div class="container-fluid text-start">
+            <div class="row align-items-start gx-5 mb-3">
+
+                <!-- Instructions Text Area -->
+                <div class="col">
+                    <label for="recipeInstructions" class="form-label">Instructions:</label>
+                    <textarea class="form-control" id="recipeInstructions" name="recipeInstructions"
+                              placeholder="Your instructions here... *"
+                              rows="5"></textarea>
                 </div>
 
-                <!-- Button to add more ingredients fields -->
-                <a id="newIngredient" onclick="addFn()" type="button">
-                    <div class="border rounded"
-                         style="height: 36px; background: rgba(256, 256, 256,.5); text-align: center; margin-top: 5px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgba(0,0,0,.5)"
-                             class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                            <path d="M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
-                        </svg>
-                    </div>
-                </a>
+                <!-- Description Text Area -->
+                <div class="col">
+                    <label for="description" class="form-label">Description (Optional):</label>
+                    <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- TODO: How to dynamically add ingredients to Recipe's `ingredients` attribute? -->
+        <div style="margin: 0 10px 0 10px">
+            <!-- Container to hold created ingredients fields -->
+            <div id="inputFields">
             </div>
 
-            <!-- Script that handles adding more ingredients fields -->
-            <script>
-                function addFn() {
-                    const divEle = document.getElementById("inputFields");
-                    divEle.innerHTML += `
+            <!-- Button to add more ingredients fields -->
+            <a id="newIngredient" onclick="addFn()" type="button">
+                <div class="border rounded"
+                     style="height: 36px; background: rgba(256, 256, 256,.5); text-align: center; margin-top: 5px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgba(0,0,0,.5)"
+                         class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                        <path d="M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- Script that handles adding more ingredients fields -->
+        <script>
+            function addFn() {
+                const divEle = document.getElementById("inputFields");
+                divEle.innerHTML += `
+       <div>
+            <!-- Ingredient Input Form -->
+            <div class="input-group mt-1" id="ingredients">
+                <!-- Ingredient Name -->
+                <span class="input-group-text">Name: </span>
+                <input type="text" class="form-control" placeholder="Ingredient Name *"
+                       aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                <!-- Ingredient QTY -->
+                <span class="input-group-text">Quantity:</span>
+                <input type="text" class="form-control" placeholder="Quantity *" aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                <!-- Remove Item -->
+                <button class="btn btn-outline-secondary" type="button" id="button-addon" onclick="deletefn()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgba(255,0,0,0.75)"
+                         class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                </button>
+
+            </div>
+      `;
+            }
+
+            function deletefn() {
+                const divEle = document.getElementById("inputFields");
+                divEle.innerHTML -= `
        <div>
             <!-- Ingredient Input Form -->
             <div class="input-group mt-1" id="ingredients">
@@ -183,18 +222,18 @@
 
             </div>
       `;
-                }
-            </script>
+            }
+        </script>
 
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-auto" style="margin: 10px 0 10px 0">
+            <button class="btn btn-primary" type="submit" id="submit">Create Recipe</button>
         </div>
+    </div>
 
-        <div class="row justify-content-center">
-            <div class="col-md-auto" style="margin: 10px 0px 0px 0px">
-                <button type="submit" id="submit">Create Recipe</button>
-            </div>
-        </div>
-
-    </form>
+</form>
 </body>
 </html>
 

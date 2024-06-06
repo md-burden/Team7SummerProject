@@ -37,7 +37,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/recipe/all?userId=1}">
+        <a data-th-href="@{/recipe/creator/all?userId=1}">
             <button class="btn" id="FavoritesButton">
                 <svg xmlns="http://www.w3.org/2000/svg" height=32 width=32 fill="currentColor" class="bi bi-heart-fill"
                      viewBox="0 0 16 16">
@@ -64,7 +64,7 @@
     <div style="flex-grow:1; width: 100%;">
         <h5 style="margin:30px">My Recent Recipes</h5>
 
-        <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap:20px; width:100%; margin: 20px;">
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: start; gap:20px; width:100%; margin: 20px;">
             <div class="col-m-1" th:each="recipe :${recipes}">
                 <a href="CreatorRecipePage.html" class="card" style="width: 18rem; text-decoration:none;">
                     <!---Image(resizes with card width)--->
