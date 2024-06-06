@@ -1,12 +1,10 @@
 package com.team7.recipeasy.recipe;
 
-import com.team7.recipeasy.user.UserService;
+import com.team7.recipeasy.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/recipe")
@@ -14,6 +12,9 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
+
+    @Autowired
+    CommentService commentService;
 
     /**
      * Directs user to the recipe creation page
@@ -24,7 +25,7 @@ public class RecipeController {
     @GetMapping("/create")
     public String newRecipePage(@RequestParam(name="userId", required = true)int userId, Model model){
         model.addAttribute("userId", userId);
-        return "Creator/RecipeCreationPage";
+        return "Creator/createrecipe";
     }
 
     /**
@@ -57,7 +58,7 @@ public class RecipeController {
     @GetMapping("/creator/all")
     public String getAllRecipes(@RequestParam(name = "userId", required = true) int userId, Model model){
         model.addAttribute("recipes", recipeService.getAllRecipesByCreatorId(userId));
-        return "Creator/CreatorRecipes";
+        return "Creator/creatorallrecipes";
     }
 
 
@@ -70,7 +71,7 @@ public class RecipeController {
     @GetMapping("/recent")
     public String getRecentRecipes(@RequestParam(value = "userId", required = true) int userId, Model model){
         model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(userId));
-        return "Creator/CreatorHomePage";
+        return "Creator/creatorhomepage";
     }
 
     /**
@@ -82,7 +83,8 @@ public class RecipeController {
     @GetMapping("")
     public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
-        return "Creator/CreatorRecipePage";
+        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+        return "Creator/creatorrecipepage";
     }
 
     @GetMapping("/totalSaves/{id}")

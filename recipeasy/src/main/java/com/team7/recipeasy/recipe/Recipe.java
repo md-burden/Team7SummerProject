@@ -79,7 +79,7 @@ public class Recipe {
         this.recipeCountry = recipe.getRecipeCountry();
         this.user = user;
 
-        if(recipe.getRecipeImage() == null){
+        if(recipe.getRecipeImage().isEmpty()){
             this.recipeImage = RecipeConstants.placeholder;
         }
         else{
