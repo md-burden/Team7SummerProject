@@ -2,9 +2,11 @@ package com.team7.recipeasy.user;
 
 import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,6 +28,9 @@ public class UserService {
             userRepository.save(u);
         }
     }
+    public Optional<User> findUserByUsername(String username) throws UsernameNotFoundException{
+        return userRepository.getUserByUsername(username);
+    }
 
     public int getActiveUserCountByAcctType(Role r){
         return userRepository.getActiveUserCountByAcctType(r.ordinal());
@@ -41,5 +46,11 @@ public class UserService {
 
     public int getBannedUserCount(){
         return userRepository.getTotalBannedUserCount();
+    }
+
+    public List<User> getUsersFromSearch(String term) {
+        System.out.println("term " + term);
+        System.out.println(userRepository.getUsersBySearch(term).toString());
+        return userRepository.getUsersBySearch(term);
     }
 }

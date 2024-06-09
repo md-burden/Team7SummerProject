@@ -1,5 +1,6 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserRepository;
 import com.team7.recipeasy.user.UserService;
@@ -21,14 +22,14 @@ public class RecipeService {
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe){
-        User user = userRepository.findById(recipe.getUser().getUserId()).orElse(null);
-        recipe = new Recipe(recipe, user);
+    public void createNewRecipe(Recipe recipe, int userId, List<Ingredient> ingredients){
+        User user = userRepository.findById(userId).orElse(null);
+        recipe = new Recipe(recipe, user, ingredients);
         recipeRepository.save(recipe);
     }
 
     public void updateRecipe(Recipe recipe){
-        recipe = new Recipe(recipe);
+        recipe = new Recipe(recipe, recipe.getUser(), recipe.getIngredients());
         recipeRepository.save(recipe);
     }
 
@@ -45,11 +46,15 @@ public class RecipeService {
      * @param userId
      * @return
      */
-    public List<Recipe> getRecentCreatorRecipes(int userId){
+    public Object getRecentCreatorRecipes(int userId){
         return recipeRepository.findCreatorRecent(userId);
     }
 
-    public int getRecipeById(int id){
+    public Recipe getRecipeById(int id){
+        return recipeRepository.findById(id).orElse(null);
+    }
+
+    public int getRecipeCountById(int id){
         Recipe r = recipeRepository.findById(id).orElse(null);
         if (r != null){
             return r.getTotalSaves();
@@ -63,7 +68,16 @@ public class RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<Integer> getRecipeIdByUserId(int userId){
-        return recipeRepository.getRecipeIdByUserId(userId);
+    public int getRecipeCountByUserId(int userId){
+        return recipeRepository.getRecipeCountByUserId(userId);
+    }
+
+    /**
+     * Fetches the ID given the recipe name
+     * @param name
+     * @return ID
+     */
+    public Integer getRecipeIdByRecipeName(String name){
+        return recipeRepository.getRecipeIdByRecipeName(name);
     }
 }

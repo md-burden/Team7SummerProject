@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin Home Page</title>
@@ -13,7 +15,7 @@
 <div style="display: flex; flex-direction:column; justify-content:flex-start; align-items: center; gap:150px;">
     <!---Banner--->
     <div class="container-fluid" ID="Banner">
-        <a href="AdminHome.html">
+        <a th:href="@{/ADMIN/home}">
             <button class="btn" id="HomeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="display: inline;" class="bi bi-house" viewBox="0 0 16 16">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
@@ -32,8 +34,8 @@
             </button>
         </a>
     </div>
-    <div style="display: flex; flex-direction:row; justify-content:space-evenly; align-items: flex-start; gap:80px;">
-        <a href="AdminReportsPage.html" class="card" style="width: 24rem; text-decoration:none;">
+    <div style="display: flex; flex-direction:row; justify-content:space-evenly; align-items: flex-start; gap:50px;">
+        <a th:href="@{/ADMIN/reports}" class="card" style="width: 24rem; text-decoration:none;">
             <div class="card-body">
                 <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">Report Center</h3>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
@@ -47,7 +49,7 @@
                 </ul>
             </div>
         </a>
-        <a href="AdminStatsPage.html" class="card" style="width: 24rem; text-decoration:none;">
+        <a th:href="@{/ADMIN/stats}" class="card" style="width: 24rem; text-decoration:none;">
             <div class="card-body">
                 <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">Statistics Center</h3>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
@@ -66,6 +68,32 @@
                 </ul>
             </div>
         </a>
+        <div style="display: flex; flex-direction:column; justify-content:space-evenly; align-items: flex-start; gap:30px;">
+            <a th:href="@{/ADMIN/accounts}" class="card" style="width: 24rem; text-decoration:none;">
+                <div class="card-body">
+                    <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">User Account Center</h3>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Use the Account Center to:
+                    </h6>
+                    <ul class="card-subtitle mb-2 text-body-secondary" style="list-style-type:circle">
+                        <li>View all Users and Creators</li>
+
+                    </ul>
+                </div>
+            </a>
+            <a th:href="@{/ADMIN/allComments}" class="card" style="width: 24rem; text-decoration:none;">
+                <div class="card-body">
+                    <h3 class="card-title" style="text-align:center; margin:0px 0px 20px 0px">Comment Center</h3>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Use the Comment Center to:
+                    </h6>
+                    <ul class="card-subtitle mb-2 text-body-secondary" style="list-style-type:circle">
+                        <li>View all Comments</li>
+
+                    </ul>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 </body>
