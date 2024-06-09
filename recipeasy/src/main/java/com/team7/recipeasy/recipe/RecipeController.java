@@ -1,10 +1,15 @@
 package com.team7.recipeasy.recipe;
 
 import com.team7.recipeasy.comment.CommentService;
+import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/recipe")
@@ -16,29 +21,23 @@ public class RecipeController {
     @Autowired
     CommentService commentService;
 
-    /**
-     * Directs user to the recipe creation page
-     * @param userId
-     * @param model
-     * @return
-     */
     @GetMapping("/create")
-    public String newRecipePage(@RequestParam(name="userId", required = true)int userId, Model model){
+    public String newRecipePage(@RequestParam("userId") int userId, Model model) {
         model.addAttribute("userId", userId);
+        Recipe recipe = new Recipe();
+        model.addAttribute("recipe", recipe);
         return "Creator/createrecipe";
     }
 
-    /**
-     * Adds the received [recipe] to the database
-     * Redirects the user to the ...
-     * @param recipe
-     * @param userId
-     * @return
-     */
     @PostMapping("/create")
-    public String  createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam(name="userId", required = true) int userId)  {
-        recipeService.createNewRecipe(recipe, userId);
-        // TODO: Switch to RecipePage but I'm being lazy for the moment
+    public String createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam("userId") int userId) {
+        if (recipe.getIngredients() != null) {
+            System.out.println(recipe.getIngredients().toString()); // Check ingredients
+        } else {
+            System.out.println("Ingredients list is null"); // Add this line for debugging
+        }
+
+        recipeService.createNewRecipe(recipe, userId, recipe.getIngredients());
         return "redirect:/recipe/recent?userId=" + userId;
     }
 

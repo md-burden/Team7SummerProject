@@ -1,5 +1,6 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserRepository;
 import com.team7.recipeasy.user.UserService;
@@ -21,14 +22,14 @@ public class RecipeService {
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe, int userId){
+    public void createNewRecipe(Recipe recipe, int userId, List<Ingredient> ingredients){
         User user = userRepository.findById(userId).orElse(null);
-        recipe = new Recipe(recipe, user);
+        recipe = new Recipe(recipe, user, ingredients);
         recipeRepository.save(recipe);
     }
 
     public void updateRecipe(Recipe recipe){
-        recipe = new Recipe(recipe);
+        recipe = new Recipe(recipe, recipe.getUser(), recipe.getIngredients());
         recipeRepository.save(recipe);
     }
 

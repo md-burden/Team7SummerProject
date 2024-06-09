@@ -10,12 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "recipe")
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Recipe {
@@ -53,7 +54,7 @@ public class Recipe {
             orphanRemoval = true
     )
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipeId")
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>(); // Initialize the ingredients list
 
     @Nonnull
     private int totalSaves;
@@ -62,21 +63,22 @@ public class Recipe {
     @JoinColumn(name = "user_id")
     private User user;
 
-    /**
-     * Used to update a users recipe
-     * @param recipe
-     * @param user
-     */
-    public Recipe(Recipe recipe, User user){
-        this.recipeId = recipe.getRecipeId();
-        this.recipeTitle = recipe.getRecipeTitle();
-        this.recipeType = recipe.getRecipeType();
-        this.time = recipe.getTime();
-        this.yield = recipe.getYield();
-        this.recipeInstructions = recipe.getRecipeInstructions();
-        this.description = recipe.getDescription();
-        this.totalSaves = recipe.getTotalSaves();
-        this.recipeCountry = recipe.getRecipeCountry();
+    public Recipe(){
+        this.ingredients = new ArrayList<>();
+    }
+
+    // Constructor for updating a recipe (adjust based on your needs)
+    public Recipe(Recipe recipe, User user, List<Ingredient> ingredients) {
+        this.recipeId = recipe.recipeId;
+        this.recipeImage = recipe.recipeImage;
+        this.recipeCountry = recipe.recipeCountry;
+        this.recipeType = recipe.recipeType;
+        this.time = recipe.time;
+        this.yield = recipe.yield;
+        this.recipeInstructions = recipe.recipeInstructions;
+        this.description = recipe.description;
+        // Use the addIngredient method for updating ingredients
+        this.totalSaves = recipe.totalSaves;
         this.user = user;
 
         if(recipe.getRecipeImage().isEmpty()){
@@ -85,24 +87,32 @@ public class Recipe {
         else{
             this.recipeImage = recipe.recipeImage;
         }
+
+        for(Ingredient ingredient : recipe.getIngredients()){
+            addIngredient(ingredient);
+        }
     }
 
-    /**
-     * Used to create a new recipe
-     * @param recipe
-     */
-    public Recipe(Recipe recipe) {
-        this.recipeId = recipe.getRecipeId();
-        this.recipeTitle = recipe.getRecipeTitle();
-        this.recipeImage = recipe.getRecipeImage();
-        this.recipeCountry = recipe.getRecipeCountry();
-        this.recipeType = recipe.getRecipeType();
-        this.time = recipe.getTime();
-        this.yield = recipe.getYield();
-        this.recipeInstructions = recipe.getRecipeInstructions();
-        this.description = recipe.getDescription();
-        this.ingredients = recipe.getIngredients();
-        this.totalSaves = recipe.getTotalSaves();
-        this.user = recipe.getUser();
+    // Constructor for creating a new recipe
+    public Recipe(String recipeTitle, String recipeImage, String recipeCountry, String recipeType,
+                  String time, String yield, String recipeInstructions, String description, User user) {
+        this.recipeTitle = recipeTitle;
+        this.recipeImage = recipeImage;
+        this.recipeCountry = recipeCountry;
+        this.recipeType = recipeType;
+        this.time = time;
+        this.yield = yield;
+        this.recipeInstructions = recipeInstructions;
+        this.description = description;
+        this.user = user;
+        this.totalSaves = 0; // Assuming a new recipe starts with 0 saves
+
+
+    }
+
+    // Helper method for adding ingredients
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+//        ingredient.setRecipe(this); // Set the relationship back to the recipe if bidirectional
     }
 }
