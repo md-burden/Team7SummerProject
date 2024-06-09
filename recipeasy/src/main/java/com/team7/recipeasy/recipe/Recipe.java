@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -46,9 +46,6 @@ public class Recipe {
     @Column(columnDefinition = "LONGTEXT")
     private String recipeInstructions;
 
-    @Nonnull
-    private String description;
-
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -64,38 +61,40 @@ public class Recipe {
     private User user;
 
     public Recipe(){
-        this.ingredients = new ArrayList<>();
+        this.ingredients = Arrays.asList(new Ingredient[10]);
     }
 
     // Constructor for updating a recipe (adjust based on your needs)
     public Recipe(Recipe recipe, User user, List<Ingredient> ingredients) {
+        this.recipeTitle = recipe.getRecipeTitle();
         this.recipeId = recipe.recipeId;
-        this.recipeImage = recipe.recipeImage;
         this.recipeCountry = recipe.recipeCountry;
         this.recipeType = recipe.recipeType;
         this.time = recipe.time;
         this.yield = recipe.yield;
         this.recipeInstructions = recipe.recipeInstructions;
-        this.description = recipe.description;
         // Use the addIngredient method for updating ingredients
         this.totalSaves = recipe.totalSaves;
         this.user = user;
 
-        if(recipe.getRecipeImage().isEmpty()){
+        if( recipe.getRecipeImage() == null || recipe.getRecipeImage().isEmpty()){
             this.recipeImage = RecipeConstants.placeholder;
         }
         else{
             this.recipeImage = recipe.recipeImage;
         }
 
-        for(Ingredient ingredient : recipe.getIngredients()){
-            addIngredient(ingredient);
+        // Only add ingredients with values
+        for(Ingredient ingredient : recipe.getIngredients()) {
+            if (!(ingredient == null) && !(ingredient.getIngredientName().isEmpty())) {
+                addIngredient(ingredient);
+            }
         }
     }
 
     // Constructor for creating a new recipe
     public Recipe(String recipeTitle, String recipeImage, String recipeCountry, String recipeType,
-                  String time, String yield, String recipeInstructions, String description, User user) {
+                  String time, String yield, String recipeInstructions, User user) {
         this.recipeTitle = recipeTitle;
         this.recipeImage = recipeImage;
         this.recipeCountry = recipeCountry;
@@ -103,7 +102,6 @@ public class Recipe {
         this.time = time;
         this.yield = yield;
         this.recipeInstructions = recipeInstructions;
-        this.description = description;
         this.user = user;
         this.totalSaves = 0; // Assuming a new recipe starts with 0 saves
 

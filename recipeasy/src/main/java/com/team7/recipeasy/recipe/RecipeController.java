@@ -21,31 +21,43 @@ public class RecipeController {
     @Autowired
     CommentService commentService;
 
-    @GetMapping("/create")
-    public String newRecipePage(@RequestParam("userId") int userId, Model model) {
+    @GetMapping("/CREATOR/create")
+    public String newRecipePage(@RequestParam(name = "userId") int userId, Model model) {
         model.addAttribute("userId", userId);
-        Recipe recipe = new Recipe();
-        model.addAttribute("recipe", recipe);
+        model.addAttribute("recipe", new Recipe());
         return "Creator/createrecipe";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/CREATOR/create")
     public String createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam("userId") int userId) {
-        if (recipe.getIngredients() != null) {
-            System.out.println(recipe.getIngredients().toString()); // Check ingredients
-        } else {
-            System.out.println("Ingredients list is null"); // Add this line for debugging
-        }
-
         recipeService.createNewRecipe(recipe, userId, recipe.getIngredients());
-        return "redirect:/recipe/recent?userId=" + userId;
+        return "redirect:/recipe/CREATOR/recent?userId=" + userId;
     }
 
     // TODO: Implement recipe updating
-    @PostMapping("/update")
+    @GetMapping("/CREATOR/update")
+    public String updateRecipePage(@RequestParam(name = "userId") int userId, @RequestParam(name = "recipeId") int recipeId, Model model){
+        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
+        return "Creator/creatorupdaterecipe";
+    }
+
+    // TODO: Implement recipe updating
+    @PostMapping("/CREATOR/update")
     public Object updateRecipe(@RequestBody Recipe recipe){
         recipeService.updateRecipe(recipe);
         return recipeService.getAllRecipes();
+    }
+
+    /**
+     * Deletes a given recipe
+     * @param recipeId
+     * @return
+     */
+    @GetMapping("/CREATOR/delete")
+    public String deleteRecipe(@RequestParam(name = "recipeId", required = true) int recipeId){
+        int userId = recipeService.getRecipeById(recipeId).getUser().getUserId();
+        recipeService.deleteRecipeById(recipeId);
+        return "redirect:/recipe/recent?userId=" + userId;
     }
 
     /**
@@ -54,7 +66,7 @@ public class RecipeController {
      * @param model
      * @return
      */
-    @GetMapping("/creator/all")
+    @GetMapping("/CREATOR/all")
     public String getAllRecipes(@RequestParam(name = "userId", required = true) int userId, Model model){
         model.addAttribute("recipes", recipeService.getAllRecipesByCreatorId(userId));
         return "Creator/creatorallrecipes";
@@ -67,7 +79,7 @@ public class RecipeController {
      * @param model
      * @return
      */
-    @GetMapping("/recent")
+    @GetMapping("/CREATOR/recent")
     public String getRecentRecipes(@RequestParam(value = "userId", required = true) int userId, Model model){
         model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(userId));
         return "Creator/creatorhomepage";
@@ -89,17 +101,5 @@ public class RecipeController {
     @GetMapping("/totalSaves/{id}")
     public int getTotalSavesById(@PathVariable int id){
         return recipeService.getRecipeCountById(id);
-    }
-
-    /**
-     * Deletes a given recipe
-     * @param recipeId
-     * @return
-     */
-    @GetMapping("/delete")
-    public String deleteRecipe(@RequestParam(name = "recipeId", required = true) int recipeId){
-        int userId = recipeService.getRecipeById(recipeId).getUser().getUserId();
-        recipeService.deleteRecipeById(recipeId);
-        return "redirect:/recipe/recent?userId=" + userId;
     }
 }

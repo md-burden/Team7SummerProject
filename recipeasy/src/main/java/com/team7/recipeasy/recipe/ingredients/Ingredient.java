@@ -18,27 +18,22 @@ public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ingredient_id;
+    private int ingredientId;
 
     @Nonnull
     private String ingredientName;
 
     @Nonnull
-    private String ingredientMeasurment;
-
-    @Nonnull
-    @Column(precision = 2)
-    private Double ingredientQuantity;
+    private String ingredientAmount;
 
     /**
      * Used to create a new recipe
      * @param ingredientName
-     * @param ingredientMeasurment
-     * @param ingredientQuantity
+     * @param ingredientAmount
      */
-    public Ingredient( @Nonnull String ingredientName, @Nonnull String ingredientMeasurment, Double ingredientQuantity) {
+    public Ingredient( @Nonnull String ingredientName, @Nonnull String ingredientAmount) {
         this.ingredientName = ingredientName;
-        this.ingredientMeasurment = ingredientMeasurment;
-        this.ingredientQuantity = ingredientQuantity;
+        this.ingredientAmount = ingredientAmount;
+
     }
 }
