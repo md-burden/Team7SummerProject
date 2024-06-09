@@ -9,7 +9,5 @@ public class IngredientService {
     @Autowired
     IngredientRepository ingredientRepository;
 
-    public void addAllIngredients() {
-
-    }
+    public void addAllIngredients() {}
 }

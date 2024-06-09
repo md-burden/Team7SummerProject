@@ -24,11 +24,6 @@ public class FavoriteService {
     }
 
     public int getFavoriteCountByUserId(int id) {
-        int count = 0;
-        List<Integer> recipeList = recipeService.getRecipeIdByUserId(id);
-        for(Integer i: recipeList){
-            count += repo.getFavoritesCountByRecipe(i);
-        }
-        return count;
+        return recipeService.getRecipeCountByUserId(id);
     }
 }

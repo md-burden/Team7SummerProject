@@ -12,14 +12,16 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
-    @Query(value = "SELECT * FROM recipe WHERE user_id = :userId LIMIT 5", nativeQuery = true)
+
+    // Gets 5 newest recipes for a given user id
+    @Query(value = "SELECT * FROM recipe WHERE user_id = :userId ORDER BY recipe_id DESC LIMIT 10;", nativeQuery = true)
     List<Recipe> findCreatorRecent(@Param("userId") int userId);
 
     @Query(value = "SELECT total_saves FROM recipe WHERE recipe_id = :recipeId", nativeQuery = true)
     String getRecipeStats(@Param("recipeId") int recipeId);
 
     @Query(value = "SELECT * FROM recipe WHERE user_id = :userId", nativeQuery = true)
-    String findAllCreatorRecipe(@Param("userId") int userId);
+    List<Recipe> findAllCreatorRecipe(@Param("userId") int userId);
   
     @Query(value = "SELECT recipe_id FROM recipe WHERE user_id = ?1", nativeQuery = true)
     List<Integer> getRecipeIdByUserId(int userId);
@@ -27,5 +29,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     @Query(value = "SELECT recipe_id FROM recipe WHERE recipe_title = ?1", nativeQuery = true)
     Integer getRecipeIdByRecipeName(String recipeName);
 
-
+    @Query(value = "SELECT COUNT(*) FROM recipe WHERE user_id = :userId", nativeQuery = true)
+    int getRecipeCountByUserId(int userId);
 }
