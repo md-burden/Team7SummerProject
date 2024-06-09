@@ -35,6 +35,8 @@ public class ApplicationController {
 
     @Autowired
     FavoriteService favoriteService;
+    @Autowired
+    RecipeService recipeService;
 
 
     /**
@@ -91,6 +93,7 @@ public class ApplicationController {
         model.addAttribute("bannedCount", userService.getBannedUserCount());
         model.addAttribute("currentCount", userStatService.getCurrentLoginCount());
         model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("allRecipes", recipeService.getAllRecipes());
         model.addAttribute("stats", new UserStatsDisplay());
 
         return "Admin/AdminStatsPage";
@@ -147,6 +150,29 @@ public class ApplicationController {
             UserStatsDisplay.setUsername(term);
             UserStatsDisplay.setTotalCreatorSaves(favoriteService.getFavoriteCountByUserId(id));
             UserStatsDisplay.setTotalCreatorComments(commentService.getCommentCountByUser(id));
+        }
+        return "redirect:/ADMIN/stats";
+    }
+
+    /**
+     * Called from the stat page search, this method finds the recipe by username and sets the title, favorites
+     * count, and comments count to the Stats Display static class. If the recipe does not exist, the title is
+     * set to a warning message
+     * @param recipeTerm is the name of the recipe.
+     * @return a redirect to the stats page that displays the info.
+     */
+    @PostMapping("/ADMIN/updateRecipeStatSearch")
+    public String updateRecipeStatSearch(@RequestParam(value = "recipeTerm", required = true) String recipeTerm){
+        Integer current = recipeService.getRecipeIdByRecipeName(recipeTerm);
+        if (current == null){
+            UserStatsDisplay.setRecipeTitle("Recipe Does Not Exist");
+            UserStatsDisplay.setTotalRecipeComments(0);
+            UserStatsDisplay.setTotalRecipeSaves(0);
+        }
+        else{
+            UserStatsDisplay.setRecipeTitle(recipeTerm);
+            UserStatsDisplay.setTotalRecipeSaves(favoriteService.getFavoriteCountByRecipeId(current));
+            UserStatsDisplay.setTotalRecipeComments(commentService.getCommentCountByRecipe(current));
         }
         return "redirect:/ADMIN/stats";
     }

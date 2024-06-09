@@ -23,4 +23,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
   
     @Query(value = "SELECT recipe_id FROM recipe WHERE user_id = ?1", nativeQuery = true)
     List<Integer> getRecipeIdByUserId(int userId);
+
+    @Query(value = "SELECT recipe_id FROM recipe WHERE recipe_title = ?1", nativeQuery = true)
+    Integer getRecipeIdByRecipeName(String recipeName);
+
+
 }

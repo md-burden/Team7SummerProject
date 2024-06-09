@@ -66,4 +66,13 @@ public class RecipeService {
     public List<Integer> getRecipeIdByUserId(int userId){
         return recipeRepository.getRecipeIdByUserId(userId);
     }
+
+    /**
+     * Fetches the ID given the recipe name
+     * @param name
+     * @return ID
+     */
+    public Integer getRecipeIdByRecipeName(String name){
+        return recipeRepository.getRecipeIdByRecipeName(name);
+    }
 }
