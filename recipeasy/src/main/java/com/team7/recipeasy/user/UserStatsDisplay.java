@@ -1,91 +1,66 @@
 package com.team7.recipeasy.user;
 
+/**
+ * This Static class is used to display the creator and recipe statistics on the Admin stats page.
+ */
 public class UserStatsDisplay {
-    private String username;
-    private int totalCreatorSaves;
-    private int totalCreatorComments;
-    private int recentCreatorSaves;
+    private static String username = "";
+    private static int totalCreatorSaves = 0;
+    private static int totalCreatorComments = 0;
 
-    private String recipeTitle;
-    private int totalRecipeSaves;
-    private int totalRecipeComments;
-    private int recentRecipeSaves;
+
+    private static String recipeTitle = "";
+    private static int totalRecipeSaves = 0;
+    private static int totalRecipeComments = 0;
 
     public UserStatsDisplay() {
     }
 
-    public UserStatsDisplay(String username, int totalCreatorSaves, int totalCreatorComments, int recentCreatorSaves, String recipeTitle, int totalRecipeSaves, int totalRecipeComments, int recentRecipeSaves) {
-        this.username = username;
-        this.totalCreatorSaves = totalCreatorSaves;
-        this.totalCreatorComments = totalCreatorComments;
-        this.recentCreatorSaves = recentCreatorSaves;
-        this.recipeTitle = recipeTitle;
-        this.totalRecipeSaves = totalRecipeSaves;
-        this.totalRecipeComments = totalRecipeComments;
-        this.recentRecipeSaves = recentRecipeSaves;
-    }
-
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String username) {
+        UserStatsDisplay.username = username;
     }
 
-    public int getTotalCreatorSaves() {
+    public static int getTotalCreatorSaves() {
         return totalCreatorSaves;
     }
 
-    public void setTotalCreatorSaves(int totalCreatorSaves) {
-        this.totalCreatorSaves = totalCreatorSaves;
+    public static void setTotalCreatorSaves(int totalCreatorSaves) {
+        UserStatsDisplay.totalCreatorSaves = totalCreatorSaves;
     }
 
-    public int getTotalCreatorComments() {
+    public static int getTotalCreatorComments() {
         return totalCreatorComments;
     }
 
-    public void setTotalCreatorComments(int totalCreatorComments) {
-        this.totalCreatorComments = totalCreatorComments;
+    public static void setTotalCreatorComments(int totalCreatorComments) {
+        UserStatsDisplay.totalCreatorComments = totalCreatorComments;
     }
 
-    public int getRecentCreatorSaves() {
-        return recentCreatorSaves;
-    }
-
-    public void setRecentCreatorSaves(int recentCreatorSaves) {
-        this.recentCreatorSaves = recentCreatorSaves;
-    }
-
-    public String getRecipeTitle() {
+    public static String getRecipeTitle() {
         return recipeTitle;
     }
 
-    public void setRecipeTitle(String recipeTitle) {
-        this.recipeTitle = recipeTitle;
+    public static void setRecipeTitle(String recipeTitle) {
+        UserStatsDisplay.recipeTitle = recipeTitle;
     }
 
-    public int getTotalRecipeSaves() {
+    public static int getTotalRecipeSaves() {
         return totalRecipeSaves;
     }
 
-    public void setTotalRecipeSaves(int totalRecipeSaves) {
-        this.totalRecipeSaves = totalRecipeSaves;
+    public static void setTotalRecipeSaves(int totalRecipeSaves) {
+        UserStatsDisplay.totalRecipeSaves = totalRecipeSaves;
     }
 
-    public int getTotalRecipeComments() {
+    public static int getTotalRecipeComments() {
         return totalRecipeComments;
     }
 
-    public void setTotalRecipeComments(int totalRecipeComments) {
-        this.totalRecipeComments = totalRecipeComments;
-    }
-
-    public int getRecentRecipeSaves() {
-        return recentRecipeSaves;
-    }
-
-    public void setRecentRecipeSaves(int recentRecipeSaves) {
-        this.recentRecipeSaves = recentRecipeSaves;
+    public static void setTotalRecipeComments(int totalRecipeComments) {
+        UserStatsDisplay.totalRecipeComments = totalRecipeComments;
     }
 }

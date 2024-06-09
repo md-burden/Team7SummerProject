@@ -8,14 +8,15 @@ import com.team7.recipeasy.reports.ReportService;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserService;
 import com.team7.recipeasy.user.UserStatsDisplay;
+import com.team7.recipeasy.user.favorites.FavoriteService;
 import com.team7.recipeasy.user.userstats.UserStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 public class ApplicationController {
@@ -31,6 +32,9 @@ public class ApplicationController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    FavoriteService favoriteService;
 
 
     /**
@@ -75,19 +79,19 @@ public class ApplicationController {
     }
 
     /**
-     * Admin stats page
+     * Admin stats page displays total statistics
      * @param model
-     * @return
+     * @return html location
      */
     @GetMapping("/ADMIN/stats")
     public String getAdminStatsPage(Model model){
-        UserStatsDisplay usd = new UserStatsDisplay("", 0, 0, 0, "", 0, 0, 0);
         model.addAttribute("userCount", userService.getActiveUserCountByAcctType(Role.USER));
         model.addAttribute("creatorCount", userService.getActiveUserCountByAcctType(Role.CREATOR));
         model.addAttribute("adminCount", userService.getActiveUserCountByAcctType(Role.ADMIN));
         model.addAttribute("bannedCount", userService.getBannedUserCount());
         model.addAttribute("currentCount", userStatService.getCurrentLoginCount());
-        model.addAttribute("statDisplay", usd);
+        model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("stats", new UserStatsDisplay());
 
         return "Admin/AdminStatsPage";
     }
@@ -103,6 +107,7 @@ public class ApplicationController {
         model.addAttribute("userList", userService.getUsersFromSearch(term));
         return "Admin/AdminSearchPage";
     }
+
 
     /**
      * Used to load page with search terms
@@ -121,6 +126,31 @@ public class ApplicationController {
         model.addAttribute("commentList", commentService.fetchAllComments());
         return "Admin/AdminCommentsPage";
     }
+
+    /**
+     * Called from the stat page search, this method finds the creator by username and sets the username, favorites
+     * count, and comments count to the Stats Display static class. If the creator does not exist, the username is
+     * set to a warning message
+     * @param term is the username of the creator.
+     * @return a redirect to the stats page that displays the info.
+     */
+    @PostMapping("/ADMIN/updateUserStatSearch")
+    public String updateUserStatSearch(@RequestParam(value = "term", required = true) String term){
+        User current = userService.findUserByUsername(term).orElse(null);
+        if (current == null || current.getRole() != Role.CREATOR){
+            UserStatsDisplay.setUsername("Creator Does Not Exist");
+            UserStatsDisplay.setTotalCreatorSaves(0);
+            UserStatsDisplay.setTotalCreatorComments(0);
+        }
+        else{
+            int id = current.getUserId();
+            UserStatsDisplay.setUsername(term);
+            UserStatsDisplay.setTotalCreatorSaves(favoriteService.getFavoriteCountByUserId(id));
+            UserStatsDisplay.setTotalCreatorComments(commentService.getCommentCountByUser(id));
+        }
+        return "redirect:/ADMIN/stats";
+    }
+
 
 
 
