@@ -4,5 +4,6 @@ public enum ReportOptions {
     REMOVE_TEXT,
     DELETE_BLOCK,
     DELETE_BLOCK_AND_BAN,
+    REMOVE_TEXT_AND_BAN,
     FALSE_REPORT
 }

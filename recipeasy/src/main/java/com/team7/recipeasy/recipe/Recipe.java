@@ -51,7 +51,7 @@ public class Recipe {
             orphanRemoval = true
     )
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipeId")
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>(); // Initialize the ingredients list
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     @Nonnull
     private int totalSaves;
@@ -73,7 +73,6 @@ public class Recipe {
         this.time = recipe.time;
         this.yield = recipe.yield;
         this.recipeInstructions = recipe.recipeInstructions;
-        // Use the addIngredient method for updating ingredients
         this.totalSaves = recipe.totalSaves;
         this.user = user;
 
@@ -103,7 +102,7 @@ public class Recipe {
         this.yield = yield;
         this.recipeInstructions = recipeInstructions;
         this.user = user;
-        this.totalSaves = 0; // Assuming a new recipe starts with 0 saves
+        this.totalSaves = 0;
 
 
     }
@@ -111,6 +110,5 @@ public class Recipe {
     // Helper method for adding ingredients
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
-//        ingredient.setRecipe(this); // Set the relationship back to the recipe if bidirectional
     }
 }

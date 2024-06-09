@@ -3,11 +3,12 @@ package com.team7.recipeasy.user;
 import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -35,6 +36,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+
     @PutMapping("/ban/{id}")
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
@@ -53,5 +55,6 @@ public class UserController {
     public int getBannedUserCount(){
         return userService.getBannedUserCount();
     }
+
 
 }

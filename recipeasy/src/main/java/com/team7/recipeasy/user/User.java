@@ -13,6 +13,9 @@ public class User {
     private int userId;
 
     @Nonnull
+    private String username;
+
+    @Nonnull
     private Role role;
 
     @Nonnull
@@ -29,8 +32,18 @@ public class User {
     public User() {
     }
 
-    public User(int userId, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
+    public User(User user){
+        this.userId = user.userId;
+        this.role = user.role;
+        this.email = user.email;
+        this.password = user.password;
+        this.preference = user.preference;
+        this.isActiveUser = isActiveUser();
+    }
+
+    public User(int userId, @Nonnull String username, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
         this.userId = userId;
+        this.username = username;
         this.role = role;
         this.email = email;
         this.password = password;
@@ -88,5 +101,14 @@ public class User {
 
     public void setActiveUser(boolean activeUser) {
         isActiveUser = activeUser;
+    }
+
+    @Nonnull
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@Nonnull String username) {
+        this.username = username;
     }
 }

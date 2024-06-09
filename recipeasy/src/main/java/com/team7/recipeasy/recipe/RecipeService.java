@@ -71,4 +71,13 @@ public class RecipeService {
     public int getRecipeCountByUserId(int userId){
         return recipeRepository.getRecipeCountByUserId(userId);
     }
+
+    /**
+     * Fetches the ID given the recipe name
+     * @param name
+     * @return ID
+     */
+    public Integer getRecipeIdByRecipeName(String name){
+        return recipeRepository.getRecipeIdByRecipeName(name);
+    }
 }
