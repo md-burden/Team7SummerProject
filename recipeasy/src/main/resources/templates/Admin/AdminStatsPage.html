@@ -16,6 +16,10 @@
       position: relative;
       display: inline-block;
     }
+    #recipeTerm {
+      position: relative;
+      display: inline-block;
+    }
 
     /* Dropdown Content (Hidden by Default) */
     .dropdown-content {
@@ -38,8 +42,8 @@
 </style>
 <script type="text/javascript">
     function focusFunction(){
-    document.getElementById("myDropdown").style.display = "block";
-    filterFunction();
+        document.getElementById("myDropdown").style.display = "block";
+        filterFunction();
     }
     function unfocusFunction(){
         var myval = document.getElementById("myDropdown");
@@ -69,6 +73,41 @@
     function suggestionClicked(x){
         document.getElementById("term").value = x;
         document.getElementById("myDropdown").style.display = "none";
+    }
+
+
+    function recipeFocusFunction(){
+        document.getElementById("myRecipeDropdown").style.display = "block";
+        recipeFilterFunction();
+    }
+    function recipeUnfocusFunction(){
+        var myval = document.getElementById("myRecipeDropdown");
+        if(!myval.matches(":hover")) {
+            document.getElementById("myRecipeDropdown").style.display = "none";
+        }
+    }
+
+    function recipeFilterFunction() {
+          var input, filter, ul, li, a, i, maxCount;
+          input = document.getElementById("recipeTerm");
+          filter = input.value.toUpperCase();
+          div = document.getElementById("myRecipeDropdown");
+          a = div.getElementsByTagName("a");
+          maxCount = 0;
+          for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1 && maxCount <= 5) {
+              a[i].style.display = "";
+              maxCount += 1;
+            } else {
+              a[i].style.display = "none";
+            }
+          }
+        }
+
+    function recipeSuggestionClicked(x){
+        document.getElementById("recipeTerm").value = x;
+        document.getElementById("myRecipeDropdown").style.display = "none";
     }
 
 </script>
@@ -151,39 +190,41 @@
                             <h6 style="display:inline;">Total Comments: </h6>
                             <h6 style="display:inline;" th:text="${stats.totalCreatorComments}"></h6>
                         </div>
-
-
-
-
                     </div>
+
+
                     <!---Search by Recipe--->
                     <div style="display: flex; flex-direction:column; justify-content:space-evenly; align-items: flex-start; gap:18px; margin:20px;">
-                        <div style="display: flex; flex-direction:row; justify-content:flex-end; align-items: flex-start;">
-                            <div class="container">
-
-                                <div class="row height d-flex justify-content-center align-items-center">
-
-                                    <div class="col-md-36">
-
-                                        <div class="form">
-                                            <i class="fa fa-search"></i>
-                                            <input type="text" class="form-control form-input" placeholder="Search Recipe..." style="min-width:350px;">
-
+                        <form action="/ADMIN/updateRecipeStatSearch" method="post">
+                            <div style="display: flex; flex-direction:row; justify-content:flex-end; align-items: flex-start;">
+                                <div class="container">
+                                    <div class="row height d-flex justify-content-center align-items-center">
+                                        <div class="col-md-36">
+                                            <div class="form" id="recipeSearch">
+                                                <i class="fa fa-search"></i>
+                                                <input type="text" class="form-control form-input" id="recipeTerm" name="recipeTerm" placeholder="Search Recipe..." onfocus="recipeFocusFunction()" onfocusout="recipeUnfocusFunction()" onkeyup="recipeFilterFunction()" autocomplete="off" style="min-width:350px;">
+                                                <div id="myRecipeDropdown" class="dropdown-content">
+                                                    <a href="#" th:each="recipe: ${allRecipes}"  th:text="${recipe.recipeTitle}"  th:onclick="recipeSuggestionClicked([[${recipe.recipeTitle}]])" ></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
-
-                            <button type="button" class="btn btn-primary">Search</button>
+                        </form>
+                        <div>
+                            <h6 style="display:inline;">Recipe Name: </h6>
+                            <h6 style="display:inline;" th:text="${stats.recipeTitle}"></h6>
                         </div>
-                        <h6 ></h6> <!---th:text="${recipe.recipeTitle}"--->
-                        <h6>Total Saves: 000</h6>
-                        <h6>Total Comments: 000</h6>
-
-
-
-
+                        <div>
+                            <h6 style="display:inline;">Total Saves: </h6>
+                            <h6 style="display:inline;" th:text="${stats.totalRecipeSaves}"></h6>
+                        </div>
+                        <div>
+                            <h6 style="display:inline;">Total Comments: </h6>
+                            <h6 style="display:inline;" th:text="${stats.totalRecipeComments}"></h6>
+                        </div>
                     </div>
 
                 </div>
