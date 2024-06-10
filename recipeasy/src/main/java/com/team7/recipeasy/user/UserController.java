@@ -21,14 +21,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public void createUser(@ModelAttribute("user") User user){
+    public String createUser(User user){
         user.setActiveUser(true);
         userService.saveUser(user);
+        return "redirect:/login";
     }
 
     @PutMapping("/update")
     public void updateUser(@RequestBody User user){
-        userService.saveUser(user);
+        userService.updateUser(user);
     }
 
     @GetMapping("/{id}")

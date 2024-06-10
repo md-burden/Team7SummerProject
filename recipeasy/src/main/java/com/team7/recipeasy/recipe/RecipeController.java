@@ -43,7 +43,6 @@ public class RecipeController {
         return "redirect:/recipe?recipeId=" + recipe.getRecipeId();
     }
 
-
     /**
      * Deletes a given recipe
      * @param recipeId
@@ -105,7 +104,6 @@ public class RecipeController {
         return recipeService.getRecipeCountById(id);
     }
 
-
 //    IF SHTF; UNCOMMENT
 //    @GetMapping("/all")
 //    public Object findAllRecipes(){
@@ -116,4 +114,5 @@ public class RecipeController {
 //    public Object getAllRecipes(@PathVariable int id) {
 //        return recipeService.getAllRecipesByCreatorId(id);
 //    }
+  
 }

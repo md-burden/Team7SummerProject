@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>LoginPage</title>
@@ -54,21 +54,32 @@
 <!--    </div>-->
     <div style="margin-top: 20px; margin-left:150px; margin-right:150px; margin-bottom:50px;">
         <div class="container-fluid" style="border: 2px solid lightgrey; border-radius: 8px">
-            <form style="margin:100px">
+            <form th:action="@{/user/create}"  method="post" style="margin:100px">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="username" placeholder="Username *">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username *">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address *">
+                    <label for="role" class="form-label">Account Type</label>
+                    <select class="form-select" aria-label="Default select example" id="role" name="role">
+                        <option value="USER">User Account</option>
+                        <option value="CREATOR">Creator Account</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email address *">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password *">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password *">
+                </div>
+                <div class="mb-3">
+                    <label for="preference" class="form-label">Preference:</label>
+                    <input type="text" class="form-control" id="preference" name="preference" placeholder="Preference *">
                 </div>
                 <div class="d-grid gap-2 col-12 mx-auto">
-                    <a type="button" class="btn btn-primary" href="LoginPage.html" >Create Account</a>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
                 </div>
             </form>
         </div>
