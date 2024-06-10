@@ -63,6 +63,11 @@ public class ApplicationController {
         return "Base Pages/CreateAccountPage";
     }
 
+    @GetMapping("/403")
+    public String _403() {
+        return "403";
+    }
+
     /**
      * Admin Home Page
      * @param model
