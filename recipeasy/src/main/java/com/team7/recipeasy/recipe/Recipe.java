@@ -47,6 +47,8 @@ public class Recipe {
     private String recipeInstructions;
 
     @OneToMany(
+            fetch = FetchType.LAZY,
+            targetEntity = Ingredient.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
@@ -64,10 +66,9 @@ public class Recipe {
         this.ingredients = Arrays.asList(new Ingredient[10]);
     }
 
-    // Constructor for updating a recipe (adjust based on your needs)
-    public Recipe(Recipe recipe, User user, List<Ingredient> ingredients) {
-        this.recipeTitle = recipe.getRecipeTitle();
+    public Recipe (Recipe recipe, User user){
         this.recipeId = recipe.recipeId;
+        this.recipeTitle = recipe.recipeTitle;
         this.recipeCountry = recipe.recipeCountry;
         this.recipeType = recipe.recipeType;
         this.time = recipe.time;
@@ -76,14 +77,13 @@ public class Recipe {
         this.totalSaves = recipe.totalSaves;
         this.user = user;
 
-        if( recipe.getRecipeImage() == null || recipe.getRecipeImage().isEmpty()){
+        if( recipe.recipeImage == null || recipe.recipeImage.isEmpty()){
             this.recipeImage = RecipeConstants.placeholder;
         }
         else{
             this.recipeImage = recipe.recipeImage;
         }
 
-        // Only add ingredients with values
         for(Ingredient ingredient : recipe.getIngredients()) {
             if (!(ingredient == null) && !(ingredient.getIngredientName().isEmpty())) {
                 addIngredient(ingredient);
@@ -91,21 +91,18 @@ public class Recipe {
         }
     }
 
-    // Constructor for creating a new recipe
-    public Recipe(String recipeTitle, String recipeImage, String recipeCountry, String recipeType,
-                  String time, String yield, String recipeInstructions, User user) {
-        this.recipeTitle = recipeTitle;
-        this.recipeImage = recipeImage;
-        this.recipeCountry = recipeCountry;
-        this.recipeType = recipeType;
-        this.time = time;
-        this.yield = yield;
-        this.recipeInstructions = recipeInstructions;
-        this.user = user;
-        this.totalSaves = 0;
-
-
-    }
+//    public Recipe(String recipeTitle, String recipeImage, String recipeCountry, String recipeType,
+//                  String time, String yield, String recipeInstructions, User user) {
+//        this.recipeTitle = recipeTitle;
+//        this.recipeImage = recipeImage;
+//        this.recipeCountry = recipeCountry;
+//        this.recipeType = recipeType;
+//        this.time = time;
+//        this.yield = yield;
+//        this.recipeInstructions = recipeInstructions;
+//        this.user = user;
+//        this.totalSaves = 0;
+//    }
 
     // Helper method for adding ingredients
     public void addIngredient(Ingredient ingredient) {
