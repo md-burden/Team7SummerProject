@@ -43,6 +43,13 @@ public class CommentService {
 
     }
 
+    public void deleteCommentsByRecipeId(int recipeId){
+        List<Comment> comments = commentRepository.getCommentsByRecipe(recipeId);
+        for(Comment comment : comments){
+            deleteCommentReplyBlock(comment.getCommentId());
+        }
+    }
+
     public int getCommentCountByRecipe(int recipeId){
         return commentRepository.getCommentCountByRecipe(recipeId);
     }

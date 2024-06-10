@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public void createUser(@RequestBody User user){
+    public void createUser(@ModelAttribute("user") User user){
         user.setActiveUser(true);
         userService.saveUser(user);
     }

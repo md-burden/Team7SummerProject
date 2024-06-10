@@ -62,7 +62,8 @@
 </div>
 <!--End Banner -->
 
-<form action="#" th:action="@{/recipe/CREATOR/create?userId=1}" th:object="${recipe}" method="post">
+<form action="#" th:action="@{/recipe/CREATOR/create?userId={userId} (userId=${userId})}" th:object="${recipe}"
+      method="post">
 
     <div style="margin: 10px">
 
@@ -188,6 +189,7 @@
                 <button class="btn btn-primary" type="submit">Create Recipe</button>
             </div>
         </div>
+    </div>
 </form>
 
 <!-- Updates the image to the input URI -->

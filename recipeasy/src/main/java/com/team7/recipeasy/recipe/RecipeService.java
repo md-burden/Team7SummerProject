@@ -1,5 +1,6 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserRepository;
@@ -15,21 +16,27 @@ public class RecipeService {
     @Autowired
     RecipeRepository recipeRepository;
 
+
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * Saves a new recipe to the database
      * @param recipe
      */
-    public void createNewRecipe(Recipe recipe, int userId, List<Ingredient> ingredients){
-        User user = userRepository.findById(userId).orElse(null);
-        recipe = new Recipe(recipe, user, ingredients);
+    public void createNewRecipe(Recipe recipe, int userId){
+        User user = userService.getUserById(userId);
+        recipe = new Recipe(recipe, user);
         recipeRepository.save(recipe);
     }
 
-    public void updateRecipe(Recipe recipe){
-        recipe = new Recipe(recipe, recipe.getUser(), recipe.getIngredients());
+    public void updateRecipe(Recipe recipe, int userId, int recipeId){
+        recipe.setRecipeId(recipeId);
+        User user = userService.getUserById(userId);
+        recipe = new Recipe(recipe, user);
+
         recipeRepository.save(recipe);
     }
 
@@ -64,8 +71,9 @@ public class RecipeService {
         }
     }
   
-     public void deleteRecipeById(int id){
-        recipeRepository.deleteById(id);
+     public void deleteRecipeById(int recipeId){
+        commentService.deleteCommentsByRecipeId(recipeId);
+        recipeRepository.deleteById(recipeId);
     }
 
     public int getRecipeCountByUserId(int userId){

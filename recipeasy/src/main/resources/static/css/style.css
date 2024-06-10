@@ -72,3 +72,7 @@ position: absolute;
     background-color: rgba(202,24,20,.5);
     border-color: rgba(202,24,20,.1);
 }
+
+#card-footer-color{
+    background-color: #ffff;
+}
