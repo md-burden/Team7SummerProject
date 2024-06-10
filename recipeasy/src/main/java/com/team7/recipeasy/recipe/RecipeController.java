@@ -54,9 +54,9 @@ public class RecipeController {
     }
 
     @GetMapping("/all/{id}")
-    public Object getAllRecipes(@PathVariable int id){
+    public Object getAllRecipes(@PathVariable int id) {
         return recipeService.getAllRecipesByCreatorId(id);
-
+    }
     /**
      * Deletes a given recipe
      * @param recipeId
@@ -111,4 +111,5 @@ public class RecipeController {
     public int getTotalSavesById(@PathVariable int id){
         return recipeService.getRecipeCountById(id);
     }
+
 }

@@ -26,10 +26,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
-                        //.requestMatchers("/VENDOR/**").hasAuthority("VENDOR")
-                        //.requestMatchers("/ADMIN/**").hasAuthority("ADMIN")
-                        //.anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                                .requestMatchers("/createAccount").permitAll()
+                        .requestMatchers("/user/create").permitAll()
+                        .requestMatchers("/CREATOR/**").hasAuthority("CREATOR")
+                        .requestMatchers("/ADMIN/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated()
+                        //.anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")

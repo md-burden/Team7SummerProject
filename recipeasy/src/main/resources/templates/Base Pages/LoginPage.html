@@ -48,6 +48,13 @@
 <!--    </button>-->
 </div>
 
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+
 <div class="container" style="padding: 10px">
     <div>
         <h1 style="text-align: center; font-size: 50px">Log In</h1>
@@ -57,22 +64,27 @@
     </div>
     <div style="margin-top: 20px; margin-left:150px; margin-right:150px; margin-bottom:50px;">
         <div class="container-fluid" style="border: 2px solid lightgrey; border-radius: 8px">
-        <form style="margin:100px">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email Address *">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password *">
-            </div>
-                <div class="d-grid gap-2 col-12 mx-auto">
-                    <button type="button" class="btn btn-primary">Login</button>
+            <form style="margin:100px" th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Username *">
                 </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password *">
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+
+            <!--- Create Account, forgot Password --->
             <div class="d-flex flex-row justify-content-center" style="padding-top: 15px">
+
                 <div class="">
+
                     <span>
-                        <a href="CreateAccountPage.html">Create Account</a>
+                        <a th:href="@{/createAccount}">Create Account</a>
                     </span>
                 </div>
                 <div class="mx-2">|</div>
@@ -81,8 +93,8 @@
                         <a href="ForgotPassword.html">Forgot Password?</a>
                     </span>
                 </div>
+
             </div>
-        </form>
         </div>
     </div>
 </div>

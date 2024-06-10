@@ -46,7 +46,7 @@ public class ApplicationController {
      */
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String home(Model model){
-        return "home";
+        return "Base Pages/HomePage";
     }
 
     /**
@@ -58,13 +58,18 @@ public class ApplicationController {
         return "Base Pages/LoginPage";
     }
 
+    @GetMapping("/createAccount")
+    public String createAccount(){
+        return "Base Pages/CreateAccountPage";
+    }
+
     /**
      * Admin Home Page
      * @param model
      * @return
      */
     @GetMapping("/ADMIN/home")
-    public String getAdminHomePage(Model model){
+    public String getAdminHomePage(@RequestParam(name = "continue", required = false) String cont, Model model){
         return "Admin/AdminHome";
     }
 
