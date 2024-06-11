@@ -8,7 +8,7 @@
 
     <!-- Using Thymeleaf to load style sheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body style="background:#FAF4DF">
@@ -43,9 +43,14 @@
 
     </div>
 
-
+    <form th:action="@{/user/search}" method="get" style="margin-top: 20px;">
+        <label>
+            <input type="text" style="min-width:500px" class="form-control" placeholder="Start Searching for Recipes..." name="name">
+        </label>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
     <!-- Search results will be displayed here -->
-    <div th:if="${not #lists.isEmpty(recipes)}">
+    <div th:if="${not #lists.isEmpty(recipes)}" class="recipe-grid">
         <div th:each="recipe : ${recipes}" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap:20px;">
             <a th:href="@{'/user/recipePage?id=' + ${recipe.idMeal}}" class="card" style="width: 18rem; text-decoration:none;">
                 <!-- Image (resizes with card width) -->

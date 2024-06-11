@@ -2,9 +2,13 @@ package com.team7.recipeasy.themealdb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
@@ -31,8 +35,10 @@ public class Meal {
     @JsonProperty("strCategory")
     private String strCategory;
 
-    // Getters and setters
+    private List<Ingredient> ingredients;
 
+    // Getters and setters
+    // TODO: Add List<Ingredient> ingredients to Meal constructor
     public Meal(String idMeal, String strMeal, String strInstructions, String strMealThumb, String strArea, String strCategory){
         this.idMeal = idMeal;
         this.strMeal = strMeal;
@@ -40,6 +46,8 @@ public class Meal {
         this.strMealThumb = strMealThumb;
         this.strArea = strArea;
         this.strCategory = strCategory;
+        // TODO: Uncomment this once ingredients is added
+//        this.ingredients = ingredients;
     }
     public Meal(){
         this.idMeal = "";
@@ -48,6 +56,7 @@ public class Meal {
         this.strMealThumb = "";
         this.strArea = "";
         this.strCategory = "";
+        this.ingredients = new ArrayList<>();
     }
 
 

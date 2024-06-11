@@ -103,8 +103,6 @@ public class Recipe {
         this.recipeInstructions = recipeInstructions;
         this.user = user;
         this.totalSaves = 0;
-
-
     }
 
     // Helper method for adding ingredients

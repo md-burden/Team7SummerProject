@@ -1,7 +1,5 @@
 package com.team7.recipeasy.user;
 
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.team7.recipeasy.recipe.Recipe;
 import com.team7.recipeasy.recipe.RecipeService;
 import com.team7.recipeasy.constants.Role;
@@ -13,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import static java.lang.Integer.parseInt;
 
 @Controller
 @RequestMapping("/user")
@@ -83,8 +82,14 @@ public class UserController {
     @GetMapping("/recipePage")
     public String getRecipePage(@RequestParam String id, Model model) {
         Meal meal = mealService.getMealById(id);
-        model.addAttribute("meal", meal);
-        return "User/UserRecipePage";
+        if(meal != null) {
+            model.addAttribute("meal", meal);
+            return "User/UserRecipePage";
+        }
+        Recipe recipe = recipeService.getRecipeById(parseInt(id));
+        model.addAttribute("recipe", recipe);
+        return "User/UserDBRecipePage";
+
     }
 
     @GetMapping("/search")
