@@ -1,21 +1,26 @@
-package com.team7.recipeasy.recipe;
+package com.team7.recipeasy.creator;
 
 import com.team7.recipeasy.comment.Comment;
 import com.team7.recipeasy.comment.CommentService;
+import com.team7.recipeasy.recipe.Recipe;
+import com.team7.recipeasy.recipe.RecipeService;
+import com.team7.recipeasy.user.User;
+import com.team7.recipeasy.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/recipe")
-public class RecipeController {
-
+@RequestMapping("/CREATOR")
+public class CreatorContoller {
     @Autowired
     RecipeService recipeService;
 
     @Autowired
     CommentService commentService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/create")
     public String newRecipePage(@RequestParam(name = "userId") int userId, Model model) {
@@ -26,9 +31,8 @@ public class RecipeController {
 
     @PostMapping("/create")
     public String createNewRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam("userId") int userId) {
-        System.out.println(userId);
         recipeService.createNewRecipe(recipe, userId);
-        return "redirect:/recipe/CREATOR/recent?userId=" + userId;
+        return "redirect:/home?userId=" + userId;
     }
 
 
@@ -41,7 +45,7 @@ public class RecipeController {
     @PostMapping("/update")
     public String updateRecipe(@ModelAttribute("recipe") Recipe recipe, @RequestParam(name = "userId") int userId, @RequestParam(name="recipeId") int recipeId){
         recipeService.updateRecipe(recipe, userId, recipeId);
-        return "redirect:/recipe?recipeId=" + recipe.getRecipeId();
+        return "redirect:?recipeId=" + recipe.getRecipeId();
     }
 
     /**
@@ -53,7 +57,7 @@ public class RecipeController {
     public String deleteRecipe(@RequestParam(name = "recipeId", required = true) int recipeId){
         int userId = recipeService.getRecipeById(recipeId).getUser().getUserId();
         recipeService.deleteRecipeById(recipeId);
-        return "redirect:/recipe/CREATOR/recent?userId=" + userId;
+        return "redirect:/home?userId=" + userId;
     }
 
     /**
@@ -71,49 +75,22 @@ public class RecipeController {
 
     /**
      * Navigates to a give creators home page and shows 10 most recent recipes
-     * @param userId
+     * @param username
      * @param model
      * @return
      */
-    @GetMapping("/recent")
-    public String getRecentRecipes(@RequestParam(value = "userId", required = true) int userId, Model model){
-        model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(userId));
+    @GetMapping("/home/{username}")
+    public String getRecentRecipes(@PathVariable("username") String username, Model model){
+        User user = userService.findUserByUsername(username).orElse(null);
+        assert user != null;
+        model.addAttribute("userId", user.getUserId());
+        model.addAttribute("recentsList", recipeService.getRecentCreatorRecipes(user.getUserId()));
         return "Creator/creatorhomepage";
     }
 
-    /**
-     * Navigates a recipe page and loads the given recipe
-     * @param recipeId
-     * @param model
-     * @return
-     */
-    @GetMapping("")
-    public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
-        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
-        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
-        return "Creator/creatorrecipepage";
-    }
-
     @PostMapping("/reply")
-    public String replyToComment(@ModelAttribute(name = "comment")Comment comment){
+    public String replyToComment(@ModelAttribute(name = "comment") Comment comment){
         commentService.saveComment(comment);
-        return "redirect:/recipe?recipeId=" + comment.getRecipe().getRecipeId();
+        return "redirect:?recipeId=" + comment.getRecipe().getRecipeId();
     }
-
-    @GetMapping("/totalSaves/{id}")
-    public int getTotalSavesById(@PathVariable int id){
-        return recipeService.getRecipeCountById(id);
-    }
-
-//    IF SHTF; UNCOMMENT
-//    @GetMapping("/all")
-//    public Object findAllRecipes(){
-//        return recipeService.getAllRecipes();
-//    }
-//
-//    @GetMapping("/all/{id}")
-//    public Object getAllRecipes(@PathVariable int id) {
-//        return recipeService.getAllRecipesByCreatorId(id);
-//    }
-  
 }

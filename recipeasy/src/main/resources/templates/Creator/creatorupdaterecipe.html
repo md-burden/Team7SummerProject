@@ -18,7 +18,7 @@
 
     <div class="container-fluid" ID="Banner">
 
-        <a class="btn" id="HomeButton" data-th-href="@{/recipe/CREATOR/recent?userId=1}">
+        <a class="btn" id="HomeButton" data-th-href="@{/CREATOR/home?userId={userId} (userId=${userId})}">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="display: inline;" class="bi bi-house"
                  viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
@@ -28,7 +28,7 @@
 
         <h1 style="color:#FAF4DF; font-size:32pt; font-family:Tahoma; display: inline;" id="TitleText">Recipeasy</h1>
 
-        <a data-th-href="@{/recipe/CREATOR/create?userId=1}">
+        <a data-th-href="@{/CREATOR/create?userId={userId} (userId=${userId})}">
             <button class="btn" id="NewRecipeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle-plus"
                      viewBox="0 0 16 16">
@@ -38,7 +38,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/recipe/CREATOR/all?userId=1}">
+        <a data-th-href="@{/CREATOR/all?userId={userId} (userId=${userId})}">
             <button class="btn" id="FavoritesButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-archive-fill"
                      viewBox="0 0 16 16">
@@ -47,7 +47,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/user/1}">
+        <a data-th-href="@{/user/{userId} (userId=${userId})}">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle"
                      viewBox="0 0 16 16">
