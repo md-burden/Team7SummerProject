@@ -58,4 +58,8 @@ public class CommentService {
         return commentRepository.getCommentCountByUser(userId);
     }
 
+    public int getReplyCountByCommentId(int commentId){
+        return commentRepository.getReplyCountByCommentID(commentId);
+    }
+
 }
