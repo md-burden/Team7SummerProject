@@ -40,18 +40,17 @@
 </div>
 <!-- End Banner -->
 
-
 <!-- Recipe Image -->
 <div style="margin:20px;">
     <div style="display:flex; flex-direction: row; justify-content: flex-start; gap: 20px;">
-        <img th:src="@{/images/StrawberriesRomanoff.jpg}" alt="Strawberries Romanoff" id="RecipePhoto">
+        <img th:src="${meal.strMealThumb}" alt="Strawberries Romanoff" id="RecipePhoto">
         <div>
             <!-- Title -->
-            <h2>Strawberries Romanoff</h2>
+            <h2 th:text="${meal.strMeal}">Strawberries Romanoff</h2>
             <!-- Country of Origin -->
-            <p style="font-size:16pt">Russia</p>
+            <p style="font-size:16pt" th:text="${meal.strArea}">Russia</p>
             <!-- Category -->
-            <p style="font-size:16pt"><i>Dessert</i></p>
+            <p style="font-size:16pt" th:text="${meal.strCategory}"><i>Dessert</i></p>
             <!-- Save Button -->
             <button class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" fill="#ca1814" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -61,8 +60,6 @@
         </div>
     </div>
 </div>
-
-
 <div style="margin:10px;">
     <div style="margin:20px; min-height:30px; display:flex; flex-direction: row; justify-content: flex-start; gap:310px">
         <h3>Ingredients</h3>
@@ -80,7 +77,6 @@
                     <p class="IngredientList">2 Pint</p>
                 </div>
             </div>
-
 
             <!-- Ingredient 2 -->
             <div class="form-check">
@@ -132,8 +128,8 @@
 
 
         <!-- Description Text -->
-        <div style="margin:0 50px 0 0">
-            <p>
+        <div style="margin:0 50px 0 0" >
+            <p th:text="${meal.strInstructions}">
                 In a medium bowl, combine hulled and quartered strawberries, 4 Tbsp sugar and 4 Tbsp liqueur, stir to
                 combine then cover and refrigerate at least 1 hour and up to 2 hours, stirring once or twice. <br><br>
                 Just before serving, in a large mixing bowl, combine 1 cup cold heavy cream and 1/4 cup powdered sugar,

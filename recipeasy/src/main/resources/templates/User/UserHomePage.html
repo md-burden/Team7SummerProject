@@ -48,27 +48,29 @@
 
     <form th:action="@{/user/search}" method="get">
         <label>
-            <input type="text" style="min-width:500px" class="form-control" placeholder="Start Searching for Recipes..." name="keyword">
+            <input type="text" style="min-width:500px" class="form-control" placeholder="Start Searching for Recipes..." name="name">
         </label>
         <button class="btn btn-primary" type="submit">Search</button>
     </form>
 
 
     <div>
-        <h5 style="margin:30px">Need Ideas?</h5>
+        <h5 style="margin:30px">Featured Recipe!</h5>
+
+
         <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap:20px;">
-            <a th:href="@{/recipes/recipePage}" class="card" style="width: 18rem; text-decoration:none;">
+            <a th:href="@{'/user/recipePage?id=52772'}" class="card" style="width: 18rem; text-decoration:none;">
                 <!---Image(resizes with card width)--->
-                <img src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
+                <img src="https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg" class="card-img-top" alt="..." style="border:10px solid white;">
                 <div class="card-body">
                     <!---Title--->
-                    <h5 class="card-title">Strawberries Romanoff</h5>
+                    <h5 class="card-title">Teriyaki Chicken Casserole</h5>
                     <div style="display:flex; flex-direction: row; justify-content: space-between;">
                         <div>
                             <!---Country--->
-                            <h6 class="card-subtitle" style="margin:0 0 10px 0">Russia</h6>
+                            <h6 class="card-subtitle" style="margin:0 0 10px 0">Japanese</h6>
                             <!---Category--->
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Dessert</h6>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Chicken</h6>
                         </div>
                         <div>
                             <button class="btn">

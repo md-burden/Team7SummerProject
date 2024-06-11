@@ -2,6 +2,8 @@ package com.team7.recipeasy.recipe;
 
 import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.recipe.ingredients.Ingredient;
+import com.team7.recipeasy.themealdb.Meal;
+import com.team7.recipeasy.themealdb.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,9 @@ public class RecipeController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    MealService mealService;
 
     @GetMapping("/CREATOR/create")
     public String newRecipePage(@RequestParam(name = "userId") int userId, Model model) {
@@ -111,5 +116,8 @@ public class RecipeController {
         public int getTotalSavesById ( @PathVariable int id){
             return recipeService.getRecipeCountById(id);
         }
-    }
+
+
+
+}
 

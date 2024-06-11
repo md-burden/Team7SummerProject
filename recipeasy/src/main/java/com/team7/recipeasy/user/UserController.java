@@ -1,9 +1,12 @@
 package com.team7.recipeasy.user;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.team7.recipeasy.recipe.Recipe;
 import com.team7.recipeasy.recipe.RecipeService;
 import com.team7.recipeasy.constants.Role;
+import com.team7.recipeasy.themealdb.Meal;
+import com.team7.recipeasy.themealdb.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,9 @@ public class UserController {
 
     @Autowired
     RecipeService recipeService;
+
+    @Autowired
+    MealService mealService;
 
     @GetMapping("/all")
     public List<User> getAllUsers(){
@@ -74,10 +80,17 @@ public class UserController {
         return "User/UserProfilePage";
     }
 
+    @GetMapping("/recipePage")
+    public String getRecipePage(@RequestParam String id, Model model) {
+        Meal meal = mealService.getMealById(id);
+        model.addAttribute("meal", meal);
+        return "User/UserRecipePage";
+    }
 
     @GetMapping("/search")
-    public String searchRecipesByTitle(@RequestParam("keyword") String keyword, Model model) {
-        List<Recipe> recipes = recipeService.searchRecipesByTitle(keyword);
+    public String getSearchRecipes (@RequestParam(value = "name", required = false) String name, Model model) {
+        List<Meal> recipes = mealService.searchMealByName(name);
+        System.out.println(recipes);
         model.addAttribute("recipes", recipes);
         return "User/UserResultsPage";
     }
