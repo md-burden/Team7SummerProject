@@ -23,6 +23,11 @@ public class Favorite {
     public Favorite() {
     }
 
+    public Favorite(User user, Recipe recipe) {
+        this.user = user;
+        this.recipe = recipe;
+    }
+
     public Favorite(int favoriteId, User user, Recipe recipe) {
         this.user = user;
         this.recipe = recipe;

@@ -80,4 +80,7 @@ public class RecipeService {
     public Integer getRecipeIdByRecipeName(String name){
         return recipeRepository.getRecipeIdByRecipeName(name);
     }
+
+    public List<Recipe> searchRecipesByTitle(String keyword) { return recipeRepository.searchRecipesByTitle(keyword); }
+
 }

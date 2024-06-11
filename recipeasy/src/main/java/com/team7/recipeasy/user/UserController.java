@@ -1,5 +1,8 @@
 package com.team7.recipeasy.user;
 
+
+import com.team7.recipeasy.recipe.Recipe;
+import com.team7.recipeasy.recipe.RecipeService;
 import com.team7.recipeasy.constants.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RecipeService recipeService;
 
     @GetMapping("/all")
     public List<User> getAllUsers(){
@@ -41,6 +47,7 @@ public class UserController {
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
     }
+
     @DeleteMapping("/deleteAccount/{id}")
     public void deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
@@ -55,6 +62,27 @@ public class UserController {
     public int getBannedUserCount(){
         return userService.getBannedUserCount();
     }
+
+    @GetMapping("/home")
+    public String userHomePage() {
+        return "User/UserHomePage";
+    }
+
+
+    @GetMapping("/profile")
+    public String getUserProfilePage() {
+        return "User/UserProfilePage";
+    }
+
+
+    @GetMapping("/search")
+    public String searchRecipesByTitle(@RequestParam("keyword") String keyword, Model model) {
+        List<Recipe> recipes = recipeService.searchRecipesByTitle(keyword);
+        model.addAttribute("recipes", recipes);
+        return "User/UserResultsPage";
+    }
+
+
 
 
 }
