@@ -80,8 +80,8 @@
     <p><strong> Preferences</strong> Italian</p>
     <div class="d-grid gap-2 col-3">
         <button class="btn btn-primary" type="button">Change Password</button>
-        <button class="btn btn-primary" type="button">Delete Account</button>
-        <a href="#" class="btn btn-primary" type="button">Log Out</a>
+        <a th:href="@{/user/deleteAccount/{userId} (userId=${user.userId})}" class="btn btn-primary" type="button">Delete Account</a>
+        <a href="#" th:href="@{/logout}" class="btn btn-primary" type="button">Log Out</a>
     </div>
 
 </div>

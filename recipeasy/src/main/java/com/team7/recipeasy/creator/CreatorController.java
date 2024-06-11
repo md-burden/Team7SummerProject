@@ -7,6 +7,7 @@ import com.team7.recipeasy.recipe.Recipe;
 import com.team7.recipeasy.recipe.RecipeService;
 import com.team7.recipeasy.reports.Report;
 import com.team7.recipeasy.reports.ReportService;
+import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -69,6 +70,7 @@ public class CreatorController {
     public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
         model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+        model.addAttribute("report", new Report());
         return "Creator/recipepage";
     }
 
@@ -124,5 +126,12 @@ public class CreatorController {
     public String reportComment(@ModelAttribute(name="report") Report report){
         reportService.saveReport(report);
         return "redirect:/CREATOR/recipe?recipeId=" + report.getComment().getRecipe().getRecipeId();
+    }
+
+    @GetMapping("/profile")
+    public String loadHomePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
+        model.addAttribute("user", user);
+        return "Creator/profilepage";
     }
 }
