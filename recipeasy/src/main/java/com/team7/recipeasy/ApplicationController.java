@@ -188,6 +188,12 @@ public class ApplicationController {
         return "redirect:/ADMIN/stats";
     }
 
+    @GetMapping("/ADMIN/profile")
+    public String getProfilePage(Model model){
+        model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+        return "Admin/AdminProfilePage";
+    }
+
 
 
 
