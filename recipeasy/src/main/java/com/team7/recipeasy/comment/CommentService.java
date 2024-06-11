@@ -38,7 +38,6 @@ public class CommentService {
 
     public void deleteCommentReplyBlock(int id){
         Comment comment = fetchCommentById(id);
-        commentRepository.deleteById(comment.getConnectedId());
         commentRepository.deleteById(comment.getCommentId());
 
     }

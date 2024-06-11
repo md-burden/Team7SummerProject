@@ -19,7 +19,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int commentId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
