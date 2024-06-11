@@ -221,6 +221,14 @@
                                             Reporting <p th:text="${comment.commenter.getEmail()}"
                                                          style="float: right; margin-left: 10px;"></p>
                                         </h5>
+
+                                        <form action="" th:object="${report}">
+                                            <input type="hidden" th:value="${comment}" name="comment">
+                                            <textarea class="form-control" id="report" name="commentContents"
+                                                      th:field="*{}"
+                                                      placeholder="Write your reply..."
+                                                      rows="5"></textarea>
+                                        </form>
                                         <button type="button"
                                                 class="btn-close"
                                                 data-bs-dismiss="modal"

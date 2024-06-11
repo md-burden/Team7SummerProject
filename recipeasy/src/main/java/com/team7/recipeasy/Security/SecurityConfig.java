@@ -23,6 +23,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        String[] staticResources = {"/css/**"};
+
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.setMatchingRequestParameterName(null);
         http
@@ -30,12 +33,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
-                                .requestMatchers("/createAccount").permitAll()
+                        .requestMatchers(staticResources).permitAll()
+                        .requestMatchers("/createAccount").permitAll()
                         .requestMatchers("/user/create").permitAll()
                         .requestMatchers("/CREATOR/**").hasAuthority("CREATOR")
                         .requestMatchers("/ADMIN/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
-//                        .anyRequest().permitAll()
+//                       .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
