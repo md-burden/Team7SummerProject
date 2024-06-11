@@ -54,7 +54,10 @@
     <div class="d-grid gap-2 col-3">
         <button class="btn btn-primary" type="button">Change Password</button>
         <button class="btn btn-primary" type="button">Delete Account</button>
-        <a href="AdminLogin.html" class="btn btn-primary" type="button">Log Out</a>
+        <form th:action="@{/logout}" method="post">
+            <button class="btn btn-primary" type="submit">Log Out</button>
+        </form>
+
     </div>
 
 </div>
