@@ -9,8 +9,8 @@ import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserService;
 import com.team7.recipeasy.user.UserStatsDisplay;
 import com.team7.recipeasy.user.favorites.FavoriteService;
-import com.team7.recipeasy.user.userstats.UserStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +27,6 @@ public class ApplicationController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    UserStatsService userStatService;
 
     @Autowired
     CommentService commentService;
@@ -102,7 +99,6 @@ public class ApplicationController {
         model.addAttribute("creatorCount", userService.getActiveUserCountByAcctType(Role.CREATOR));
         model.addAttribute("adminCount", userService.getActiveUserCountByAcctType(Role.ADMIN));
         model.addAttribute("bannedCount", userService.getBannedUserCount());
-        model.addAttribute("currentCount", userStatService.getCurrentLoginCount());
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("allRecipes", recipeService.getAllRecipes());
         model.addAttribute("stats", new UserStatsDisplay());
@@ -190,8 +186,20 @@ public class ApplicationController {
 
     @GetMapping("/ADMIN/profile")
     public String getProfilePage(Model model){
-        model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+//        model.addAttribute("email", u.getEmail());
+//        model.addAttribute("role", u.getRole());
+
+
         return "Admin/AdminProfilePage";
+    }
+
+    @GetMapping("/ADMIN/recipe/{recipeId}")
+    public String getRecipe(@PathVariable int recipeId, Model model){
+        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
+        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+        return "Creator/recipepage";
     }
 
 

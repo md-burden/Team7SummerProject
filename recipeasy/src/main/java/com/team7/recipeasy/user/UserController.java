@@ -27,7 +27,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public void updateUser(@RequestBody User user){
         userService.updateUser(user);
     }
@@ -38,11 +38,11 @@ public class UserController {
     }
 
 
-    @PutMapping("/ban/{id}")
+    @PostMapping("/ban/{id}")
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
     }
-    @DeleteMapping("/deleteAccount/{id}")
+    @GetMapping("/deleteAccount/{id}")
     public void deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
     }

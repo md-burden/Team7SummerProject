@@ -49,11 +49,9 @@
         <p style="display:inline;"><strong> Username</strong></p>
         <p style="display:inline;" data-th-text="${username}" ></p>
     </div>
-    <p><strong> Name</strong> Username McPerson</p>
-    <p><strong> Preferences</strong> Italian</p>
+
     <div class="d-grid gap-2 col-3">
-        <button class="btn btn-primary" type="button">Change Password</button>
-        <button class="btn btn-primary" type="button">Delete Account</button>
+
         <form th:action="@{/logout}" method="post">
             <button class="btn btn-primary" type="submit">Log Out</button>
         </form>
