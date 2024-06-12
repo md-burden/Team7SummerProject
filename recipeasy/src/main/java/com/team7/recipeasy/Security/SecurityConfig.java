@@ -1,6 +1,8 @@
 package com.team7.recipeasy.Security;
 
+import com.team7.recipeasy.user.UserService;
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 @Configuration
 @EnableWebSecurity
@@ -19,6 +23,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        String[] staticResources = {"/css/**"};
+
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.setMatchingRequestParameterName(null);
         http
@@ -26,14 +33,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
-                        //.requestMatchers("/VENDOR/**").hasAuthority("VENDOR")
-                        //.requestMatchers("/ADMIN/**").hasAuthority("ADMIN")
-                        //.anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers(staticResources).permitAll()
+                        .requestMatchers("/createAccount").permitAll()
+                        .requestMatchers("/forgotpassword").permitAll()
+                        .requestMatchers("/user/create").permitAll()
+                        .requestMatchers("/CREATOR/**").hasAuthority("CREATOR")
+                        .requestMatchers("/ADMIN/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated()
+//                       .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
+                        .successHandler(new AuthSuccessHandler())
                 ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout((logout) -> logout.permitAll())
                 .requestCache((cache) -> cache

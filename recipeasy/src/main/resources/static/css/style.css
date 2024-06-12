@@ -72,3 +72,26 @@ position: absolute;
     background-color: rgba(202,24,20,.5);
     border-color: rgba(202,24,20,.1);
 }
+
+#card-footer-color{
+    background-color: #ffff;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 10px;
+}
+
+@media (max-width: 750px) {
+    .recipe-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1000px) {
+    .recipe-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
