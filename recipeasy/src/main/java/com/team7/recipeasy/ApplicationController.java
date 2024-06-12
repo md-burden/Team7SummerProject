@@ -4,6 +4,7 @@ import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.constants.Role;
 import com.team7.recipeasy.recipe.Recipe;
 import com.team7.recipeasy.recipe.RecipeService;
+import com.team7.recipeasy.reports.Report;
 import com.team7.recipeasy.reports.ReportService;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserService;
@@ -211,6 +212,7 @@ public class ApplicationController {
     public String getRecipe(@PathVariable int recipeId, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
         model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+        model.addAttribute("report", new Report());
         return "Creator/recipepage";
     }
 
