@@ -5,12 +5,18 @@ import com.team7.recipeasy.recipe.RecipeService;
 import com.team7.recipeasy.constants.Role;
 import com.team7.recipeasy.themealdb.Meal;
 import com.team7.recipeasy.themealdb.MealService;
+import com.team7.recipeasy.user.favorites.Favorite;
+import com.team7.recipeasy.user.favorites.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+
 import static java.lang.Integer.parseInt;
 
 @Controller
@@ -25,6 +31,9 @@ public class UserController {
 
     @Autowired
     MealService mealService;
+
+    @Autowired
+    FavoriteService favoriteService;
 
     @GetMapping("/all")
     public List<User> getAllUsers(){
@@ -78,13 +87,24 @@ public class UserController {
 
 
     @GetMapping("/profile")
-    public String getUserProfilePage() {
+    public String getUserProfilePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
+        model.addAttribute("user", user);
         return "User/UserProfilePage";
     }
 
     @GetMapping("/recipePage")
-    public String getRecipePage(@RequestParam String id, Model model) {
+    public String getRecipePage(@RequestParam String id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
         Meal meal = mealService.getMealById(id);
+//        User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
+//        model.addAttribute("user", user);
+//        model.addAttribute("mealId", parseInt(meal.getIdMeal()));
+//        if(favoriteService.isFavoriteRecipe(user.getUserId(), parseInt(id))) {
+//            model.addAttribute("favorite", true);
+//        } else {
+//            model.addAttribute("favorite", false);
+//        }
+
         if(meal != null) {
             model.addAttribute("meal", meal);
             return "User/UserRecipePage";
@@ -103,7 +123,9 @@ public class UserController {
         return "User/UserResultsPage";
     }
 
-
-
+    @GetMapping("/favorites")
+    public String getFavorites () {
+        return "User/Favorites";
+    }
 
 }

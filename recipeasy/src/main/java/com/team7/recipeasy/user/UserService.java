@@ -2,6 +2,7 @@ package com.team7.recipeasy.user;
 
 import com.team7.recipeasy.constants.Role;
 import com.team7.recipeasy.recipe.RecipeService;
+import com.team7.recipeasy.user.favorites.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class UserService {
@@ -76,4 +79,12 @@ public class UserService {
         System.out.println(userRepository.getUsersBySearch(term).toString());
         return userRepository.getUsersBySearch(term);
     }
+
+//    public void setUserFavorite (int userId, int recipeId) {
+//        if(favoriteService.isFavoriteRecipe(userId, recipeId)) {
+//            favoriteService.addFavorite(userId, recipeId);
+//        } else {
+//            favoriteService.removeFavorite(userId, recipeId);
+//        }
+//    }
 }

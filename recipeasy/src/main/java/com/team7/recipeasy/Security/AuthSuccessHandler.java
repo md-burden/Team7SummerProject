@@ -59,6 +59,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ADMIN", "/ADMIN/home");
         roleTargetUrlMap.put("CREATOR", "/CREATOR/home");
+        roleTargetUrlMap.put("USER", "/user/home");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {

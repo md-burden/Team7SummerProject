@@ -3,8 +3,14 @@ package com.team7.recipeasy.user.favorites;
 import com.team7.recipeasy.recipe.Recipe;
 import com.team7.recipeasy.user.User;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Data
+@Getter
+@Setter
 @Table(name = "favorites")
 public class Favorite {
 
@@ -32,29 +38,5 @@ public class Favorite {
         this.user = user;
         this.recipe = recipe;
         this.favoriteId = favoriteId;
-    }
-
-    public int getFavoriteId() {
-        return favoriteId;
-    }
-
-    public void setFavoriteId(int favoriteId) {
-        this.favoriteId = favoriteId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
 }

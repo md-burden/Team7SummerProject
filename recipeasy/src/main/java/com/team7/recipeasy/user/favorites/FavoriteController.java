@@ -16,7 +16,7 @@ import java.util.List;
 public class FavoriteController {
 
     @Autowired
-    private FavoriteService favoriteService;
+    FavoriteService favoriteService;
 
 
     @GetMapping("/getCountRecipe/{id}")
