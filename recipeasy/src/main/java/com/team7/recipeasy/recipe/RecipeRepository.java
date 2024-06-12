@@ -31,7 +31,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     @Query(value = "SELECT COUNT(*) FROM recipe WHERE user_id = :userId", nativeQuery = true)
     int getRecipeCountByUserId(int userId);
-
-    @Query(value = "SELECT * FROM recipe WHERE recipe_title LIKE %:keyword%", nativeQuery = true)
-    List<Recipe> searchRecipesByTitle(@Param("keyword") String keyword);
 }

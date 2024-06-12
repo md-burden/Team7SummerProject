@@ -1,6 +1,5 @@
 package com.team7.recipeasy.reports;
 
-import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.constants.ReportOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +12,9 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @Autowired
-    CommentService commentService;
-
     @GetMapping("/ADMIN/reports/deleteBan/{reportId}")
     public String deleteAndBan(@PathVariable int reportId){
-        int commentId = reportService.findReportById(reportId).getComment().getCommentId();
-
-        if(commentService.getReplyCountByCommentId(commentId) <= 0){
+        if(reportService.findReportById(reportId).getComment().getConnectedId() < 0){
             reportService.handleReport(reportId, ReportOptions.DELETE_BLOCK_AND_BAN);
         }
         else{
@@ -30,8 +24,7 @@ public class ReportController {
     }
     @GetMapping("/ADMIN/reports/delete/{reportId}")
     public String deleteComment(@PathVariable int reportId){
-        int commentId = reportService.findReportById(reportId).getComment().getCommentId();
-        if(commentService.getReplyCountByCommentId(commentId) <= 0){
+        if(reportService.findReportById(reportId).getComment().getConnectedId() < 0){
             reportService.handleReport(reportId, ReportOptions.DELETE_BLOCK);
         }
         else{

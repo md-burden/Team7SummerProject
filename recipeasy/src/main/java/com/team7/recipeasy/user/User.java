@@ -39,17 +39,6 @@ public class User {
         this.password = user.password;
         this.preference = user.preference;
         this.isActiveUser = isActiveUser();
-        this.username = user.getUsername();
-    }
-
-    public User(User user, String password){
-        this.userId = user.userId;
-        this.role = user.role;
-        this.email = user.email;
-        this.password = password;
-        this.preference = user.preference;
-        this.isActiveUser = isActiveUser();
-        this.username = user.getUsername();
     }
 
     public User(int userId, @Nonnull String username, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
@@ -60,19 +49,6 @@ public class User {
         this.password = password;
         this.preference = preference;
         this.isActiveUser = isActiveUser;
-    }
-
-    public User(int userId, @Nonnull String username, int role, @Nonnull String email, @Nonnull String password, @Nonnull String preference) {
-        this.userId = userId;
-        this.username = username;
-        switch (role){
-            case 0: this.role = Role.USER; break;
-            case 1: this.role = Role.CREATOR; break;
-            case 2: this.role = Role.ADMIN; break;
-        }
-        this.email = email;
-        this.password = password;
-        this.preference = preference;
     }
 
     public int getUserId() {

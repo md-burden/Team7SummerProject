@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Recipe Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-
     <!-- Using thymeleaf to load style sheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
 </head>
+<!---Begin Banner--->
 <body style="background:#FAF4DF">
-<!-- Begin Banner -->
-<div class="container-fluid" id="Banner">
-    <a th:href="@{/user/home}">
+<div class="container-fluid" ID="Banner">
+    <a href="UserHomePage.html">
         <button class="btn" id="HomeButton">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="display: inline;" class="bi bi-house" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
             </svg>
         </button>
     </a>
-    <h1 style="color:#FAF4DF; font-size:32pt; font-family:Tahoma,serif; display: inline;" id="TitleText">Recipeasy</h1>
-    <!-- Favorites Button -->
-    <a th:href="@{/user/favorites}">
+
+    <h1 style="color:#FAF4DF; font-size:32pt; font-family:Tahoma; display: inline;" id="TitleText">Recipeasy</h1>
+
+
+    <!---Favorites Button--->
+    <a href="Favorites.html">
         <button class="btn" id="FavoritesButton">
-            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" height=32 width=32 fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
             </svg>
         </button>
     </a>
-    <!-- Profile Button -->
-    <a th:href="@{/user/profile}">
+
+
+    <!---Profile Button--->
+    <a href="UserProfilePage.html">
         <button class="btn" id="UserIcon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -37,76 +42,113 @@
             </svg>
         </button>
     </a>
+
 </div>
-<!-- End Banner -->
-<form th:action="@{/user/search}" method="get" style="margin-top: 20px; display: flex; justify-content: center;">
-    <label>
-        <input type="text" style="min-width:500px" class="form-control" placeholder="Start Searching for Recipes..." name="name">
-    </label>
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
-<!-- Recipe Image -->
+<!---End Banner--->
+
+<!---Recipe Image--->
 <div style="margin:20px;">
     <div style="display:flex; flex-direction: row; justify-content: flex-start; gap: 20px;">
-        <img th:src="${meal.strMealThumb}" alt="Strawberries Romanoff" id="RecipePhoto">
-        <div>
-            <!-- Title -->
-            <h2 th:text="${meal.strMeal}">Strawberries Romanoff</h2>
-            <!-- Country of Origin -->
-            <p style="font-size:16pt" th:text="${meal.strArea}">Russia</p>
-            <!-- Category -->
-            <p style="font-size:16pt" th:text="${meal.strCategory}"><i>Dessert</i></p>
-            <!-- Save Button -->
+        <img src="../Images/StrawberriesRomanoff.jpg" alt="Strawberries Romanoff" id="RecipePhoto">
+        <div style="">
+            <!---Title--->
+            <h2 style="">Strawberries Romanoff</h2>
+            <!---Country of Origin--->
+            <p style="font-size:16pt">Russia</p>
+            <!---Category--->
+            <p style="font-size:16pt"><i>Dessert</i></p>
+            <!---Save Button--->
             <button class="btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" fill="#ca1814" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" height=32 width=32 fill="#ca1814" class="bi bi-heart-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                 </svg>
             </button>
+
         </div>
     </div>
+
 </div>
+
 <div style="margin:10px;">
     <div style="margin:20px; min-height:30px; display:flex; flex-direction: row; justify-content: flex-start; gap:310px">
         <h3>Ingredients</h3>
         <h3>Instructions</h3>
     </div>
-    <div style="display:flex;">
-        <div style="display:flex; flex-direction: column; justify-content: flex-start;">
-            <div th:each="ingredient : ${meal.getIngredients()}" >
-                <!-- Ingredient 1 -->
-                <div class="form-check" >
-                    <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
-                        <label>
-                            <input class="form-check-input" type="checkbox" style="margin:10px 0 0 0">
-                        </label>
-                        <p class="IngredientList" th:text="${ingredient.getIngredientName()}">Strawberries</p>
-                        <p class="IngredientList" th:text="${ingredient.getIngredientAmount()}">2 Pint</p>
-                    </div>
+    <div style="display:flex; flex-direction: row; justify-content: flex-start;">
+        <div style="">
+            <!---Ingredient 1--->
+            <div class="form-check">
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
+                    <label>
+                        <input class="form-check-input" type="checkbox" style="margin:10px 0px 0px 0px">
+                    </label>
+                    <p class="IngredientList">Strawberries</p>
+                    <p class="IngredientList">2 Pint</p>
+                </div>
+            </div>
+
+            <!---Ingredient 2--->
+            <div class="form-check">
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
+                    <label>
+                        <input class="form-check-input" type="checkbox" style="margin:10px 0px 0px 0px">
+                    </label>
+                    <p class="IngredientList">Sugar</p>
+                    <p class="IngredientList">4 tbs</p>
+                </div>
+            </div>
+
+            <!---Ingredient 3--->
+            <div class="form-check">
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
+                    <label>
+                        <input class="form-check-input" type="checkbox" style="margin:10px 0px 0px 0px">
+                    </label>
+                    <p class="IngredientList">Grand Marnier</p>
+                    <p class="IngredientList">4 tbs</p>
+                </div>
+            </div>
+
+            <!---Ingredient 4--->
+            <div class="form-check">
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
+                    <label>
+                        <input class="form-check-input" type="checkbox" style="margin:10px 0px 0px 0px">
+                    </label>
+                    <p class="IngredientList">Cream</p>
+                    <p class="IngredientList">1 cup</p>
+                </div>
+            </div>
+
+            <!---Ingredient 5--->
+            <div class="form-check">
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
+                    <label>
+                        <input class="form-check-input" type="checkbox" style="margin:10px 0px 0px 0px">
+                    </label>
+                    <p class="IngredientList">Sour Cream</p>
+                    <p class="IngredientList">1/4 cup</p>
                 </div>
             </div>
         </div>
-        <!-- Description Text -->
-        <div style="margin:0 50px 0 0" >
-            <p th:text="${meal.strInstructions}">
-                In a medium bowl, combine hulled and quartered strawberries, 4 Tbsp sugar and 4 Tbsp liqueur, stir to
+
+        <!---Description Text--->
+        <div style="margin:0px 50px 0px 0px">
+            <p>In a medium bowl, combine hulled and quartered strawberries, 4 Tbsp sugar and 4 Tbsp liqueur, stir to
                 combine then cover and refrigerate at least 1 hour and up to 2 hours, stirring once or twice. <br><br>
                 Just before serving, in a large mixing bowl, combine 1 cup cold heavy cream and 1/4 cup powdered sugar,
                 and beat with an electric mixer until stiff peaks form. Using a spatula, fold in 1/4 cup sour cream just
                 until well blended. <br><br> To serve, stir strawberries then divide between 6 serving glasses or bowls.
                 You can spoon a little syrup over the berries if you like. You can also use this syrup to soak a cake.
                 Spoon cream over strawberries, dividing evenly. You can also use an ice cream scoop with trigger release
-                for a nice rounded puff of cream. Serve right away or chill and enjoy within 2 hours of assembly.
-            </p>
+                for a nice rounded puff of cream. Serve right away or chill and enjoy within 2 hours of assembly.</p>
         </div>
+
     </div>
-
-
     <div style="margin:20px; min-height:50px;">
         <h3>Questions & Comments</h3>
     </div>
-
-
-    <!-- Comments -->
+    <!---Comments--->
     <div style="margin:20px;">
         <div class="card" style="width: 36rem;">
             <div class="card-body">
@@ -116,8 +158,7 @@
             </div>
         </div>
 
-
-        <div class="card" style="width: 36rem; margin:10px 0 0 75px;">
+        <div class="card" style="width: 36rem; margin:10px 0px 0px 75px;">
             <div class="card-body">
                 <h5 class="card-title">Phil</h5>
                 <h6 class="card-subtitle"><i>Creator</i></h6>
@@ -126,7 +167,6 @@
             </div>
         </div>
     </div>
-
 
     <div style="margin:40px 20px 20px 20px;">
         <div class="card" style="width: 36rem;">
@@ -137,8 +177,7 @@
             </div>
         </div>
 
-
-        <div class="card" style="width: 36rem; margin:10px 0 0 75px;">
+        <div class="card" style="width: 36rem; margin:10px 0px 0px 75px;">
             <div class="card-body">
                 <h5 class="card-title">Phil</h5>
                 <h6 class="card-subtitle"><i>Creator</i></h6>
@@ -147,18 +186,21 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Comment Textbox -->
+    <!---Comment Textbox--->
     <div style="max-width:50%; margin:20px;">
-        <div>
+        <div style="">
             <label for="CommentTextArea" class="form-label" style="font-size:18pt;">Leave a Comment:</label>
             <textarea class="form-control" id="CommentTextArea" rows="3"></textarea>
         </div>
-        <div class="col-auto" style="float:right; margin:10px 0 0 0">
+        <div class="col-auto" style="float:right; margin:10px 0px 0px 0px">
             <button type="submit" class="btn btn-primary mb-3">Comment</button>
         </div>
     </div>
+
+
+
+
+
 </div>
 </body>
 </html>

@@ -21,7 +21,4 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
     @Query(value = "select count(*) from comment where commenter_id = ?1", nativeQuery = true)
     public int getCommentCountByUser(int userId);
-
-    @Query(value = "select count(*) from comment where connected_id = ?1", nativeQuery = true)
-    public int getReplyCountByCommentID(int commentID);
 }

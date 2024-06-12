@@ -20,9 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repository.findUserByUsername(username).orElseThrow(()
                 -> new UsernameNotFoundException(username + "not found"));
-        if(!user.isActiveUser()){
-            throw new UsernameNotFoundException("Account Banned");
-        }
         ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
         authList.add(new SimpleGrantedAuthority(user.getRole().name()));
         return new org.springframework.security.core.userdetails.User(

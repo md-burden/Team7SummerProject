@@ -9,9 +9,8 @@ import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserService;
 import com.team7.recipeasy.user.UserStatsDisplay;
 import com.team7.recipeasy.user.favorites.FavoriteService;
+import com.team7.recipeasy.user.userstats.UserStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +28,9 @@ public class ApplicationController {
     UserService userService;
 
     @Autowired
+    UserStatsService userStatService;
+
+    @Autowired
     CommentService commentService;
 
     @Autowired
@@ -44,7 +46,7 @@ public class ApplicationController {
      */
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String home(Model model){
-        return "BasePages/LoginPage";
+        return "home";
     }
 
     /**
@@ -53,29 +55,7 @@ public class ApplicationController {
      */
     @GetMapping("/login")
     public String login(){
-        return "BasePages/LoginPage";
-    }
-
-    @GetMapping("/createAccount")
-    public String createAccount(){
-        return "BasePages/CreateAccountPage";
-    }
-
-    @GetMapping("/forgotpassword")
-    public String resetPassword(Model model){
-        model.addAttribute("user", new User());
-        return "BasePages/ForgotPassword";
-    }
-
-    @PostMapping("/forgotpassword")
-    public String resetPassword(@ModelAttribute("user") User user){
-        userService.resetPassword(user);
-        return "redirect:/login";
-    }
-
-    @GetMapping("/403")
-    public String _403() {
-        return "403";
+        return "Base Pages/LoginPage";
     }
 
     /**
@@ -84,7 +64,7 @@ public class ApplicationController {
      * @return
      */
     @GetMapping("/ADMIN/home")
-    public String getAdminHomePage(@RequestParam(name = "continue", required = false) String cont, Model model){
+    public String getAdminHomePage(Model model){
         return "Admin/AdminHome";
     }
 
@@ -111,6 +91,7 @@ public class ApplicationController {
         model.addAttribute("creatorCount", userService.getActiveUserCountByAcctType(Role.CREATOR));
         model.addAttribute("adminCount", userService.getActiveUserCountByAcctType(Role.ADMIN));
         model.addAttribute("bannedCount", userService.getBannedUserCount());
+        model.addAttribute("currentCount", userStatService.getCurrentLoginCount());
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("allRecipes", recipeService.getAllRecipes());
         model.addAttribute("stats", new UserStatsDisplay());
@@ -194,24 +175,6 @@ public class ApplicationController {
             UserStatsDisplay.setTotalRecipeComments(commentService.getCommentCountByRecipe(current));
         }
         return "redirect:/ADMIN/stats";
-    }
-
-    @GetMapping("/ADMIN/profile")
-    public String getProfilePage(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", auth.getName());
-//        model.addAttribute("email", u.getEmail());
-//        model.addAttribute("role", u.getRole());
-
-
-        return "Admin/AdminProfilePage";
-    }
-
-    @GetMapping("/ADMIN/recipe/{recipeId}")
-    public String getRecipe(@PathVariable int recipeId, Model model){
-        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
-        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
-        return "Creator/recipepage";
     }
 
 
