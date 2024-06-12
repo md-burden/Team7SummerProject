@@ -48,14 +48,14 @@
 <!-- Recipe Image -->
 <div style="margin:20px;">
     <div style="display:flex; flex-direction: row; justify-content: flex-start; gap: 20px;">
-        <img th:src="${meal.strMealThumb}" alt="Strawberries Romanoff" id="RecipePhoto">
+        <img th:src="${recipe.recipeImage}" alt="Strawberries Romanoff" id="RecipePhoto">
         <div>
             <!-- Title -->
-            <h2 th:text="${meal.strMeal}">Strawberries Romanoff</h2>
+            <h2 th:text="${recipe.recipeTitle}">Strawberries Romanoff</h2>
             <!-- Country of Origin -->
-            <p style="font-size:16pt" th:text="${meal.strArea}">Russia</p>
+            <p style="font-size:16pt" th:text="${recipe.recipeCountry}">Russia</p>
             <!-- Category -->
-            <p style="font-size:16pt" th:text="${meal.strCategory}"><i>Dessert</i></p>
+            <p style="font-size:16pt" th:text="${recipe.recipeType}"><i>Dessert</i></p>
             <!-- Save Button -->
             <button class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" fill="#ca1814" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -72,7 +72,7 @@
     </div>
     <div style="display:flex;">
         <div style="display:flex; flex-direction: column; justify-content: flex-start;">
-            <div th:each="ingredient : ${meal.getIngredients()}" >
+            <div th:each="ingredient : ${recipe.getIngredients()}" th:if="${recipe.getIngredients() != null && !recipe.getIngredients().isEmpty()}">
                 <!-- Ingredient 1 -->
                 <div class="form-check" >
                     <div style="display:flex; flex-direction: row; justify-content: flex-start; gap:10px;">
@@ -87,7 +87,7 @@
         </div>
         <!-- Description Text -->
         <div style="margin:0 50px 0 0" >
-            <p th:text="${meal.strInstructions}">
+            <p th:text="${recipe.recipeInstructions}">
                 In a medium bowl, combine hulled and quartered strawberries, 4 Tbsp sugar and 4 Tbsp liqueur, stir to
                 combine then cover and refrigerate at least 1 hour and up to 2 hours, stirring once or twice. <br><br>
                 Just before serving, in a large mixing bowl, combine 1 cup cold heavy cream and 1/4 cup powdered sugar,
