@@ -42,9 +42,11 @@ public class UserController {
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
     }
+
     @GetMapping("/deleteAccount/{id}")
-    public void deleteUserById(@PathVariable int id){
+    public String deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
+        return "redirect:/login";
     }
 
     @GetMapping("/stats/getCount")

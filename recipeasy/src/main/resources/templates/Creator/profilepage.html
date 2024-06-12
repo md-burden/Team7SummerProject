@@ -59,7 +59,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/user/{userId} (userId=${userId})}">
+        <a data-th-href="@{/CREATOR/profile}">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle"
                      viewBox="0 0 16 16">
@@ -74,16 +74,33 @@
 </div>
 <!--End Banner -->
 
-<div class="container" style="margin-left: 20px; margin-top: 20px;">
-    <p><strong> Username</strong> FoodLover123</p>
-    <p><strong> Name</strong> Username McPerson</p>
-    <p><strong> Preferences</strong> Italian</p>
-    <div class="d-grid gap-2 col-3">
-        <button class="btn btn-primary" type="button">Change Password</button>
-        <button class="btn btn-primary" type="button">Delete Account</button>
-        <a href="#" class="btn btn-primary" type="button">Log Out</a>
-    </div>
+<div style="display: flex; flex-direction:column; justify-content:flex-start; align-items: center;">
+    <div style="position: absolute; top: 50%;">
+        <div class="card">
+            <div class="card-body" >
+                <div class="row">
+                    <div class="auto">
+                        <strong> Username:</strong><p th:text="${user.username}"></p>
+                    </div>
+                    <div class="auto">
+                        <strong> Email:</strong><p th:text="${user.email}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <a class="btn btn-primary" type="button">Change Password</a>
+                    </div>
+                    <div class="col-auto">
+                        <a th:href="@{/user/deleteAccount/{userId} (userId=${user.userId})}" class="btn btn-primary" type="button">Delete Account</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#" th:href="@{/logout}" class="btn btn-primary" type="button">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </div>
 
 </body>

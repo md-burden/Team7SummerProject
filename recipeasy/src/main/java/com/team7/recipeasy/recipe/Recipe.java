@@ -38,12 +38,6 @@ public class Recipe {
     private String recipeType;
 
     @Nonnull
-    private String time;
-
-    @NonNull
-    private String yield;
-
-    @Nonnull
     @Column(columnDefinition = "LONGTEXT")
     private String recipeInstructions;
 
@@ -74,8 +68,6 @@ public class Recipe {
         this.recipeTitle = recipe.recipeTitle;
         this.recipeCountry = recipe.recipeCountry;
         this.recipeType = recipe.recipeType;
-        this.time = recipe.time;
-        this.yield = recipe.yield;
         this.recipeInstructions = recipe.recipeInstructions;
         this.totalSaves = recipe.totalSaves;
         this.user = user;

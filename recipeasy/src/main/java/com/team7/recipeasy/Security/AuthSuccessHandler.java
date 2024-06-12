@@ -55,7 +55,6 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     protected String determineTargetUrl(final Authentication authentication) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       System.out.println(user.getUsername());
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ADMIN", "/ADMIN/home");

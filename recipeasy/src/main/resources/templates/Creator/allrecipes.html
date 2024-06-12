@@ -46,7 +46,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/user/{userId} (userId=${userId})}">
+        <a data-th-href="@{/CREATOR/profile}">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle"
                      viewBox="0 0 16 16">
@@ -66,7 +66,7 @@
 
     <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: start; gap:20px; width:100%; margin: 20px;">
         <div class="col-m-1" th:each="recipe :${recipes}">
-            <a data-th-href="@{/recipe?recipeId={id} (id=${recipe.recipeId})}" class="card"
+            <a data-th-href="@{/CREATOR/recipe?recipeId={id} (id=${recipe.recipeId})}" class="card"
                style="width: 18rem; text-decoration:none;">
                 <!---Image(resizes with card width)--->
                 <img class="card-img-top" th:src="${recipe.recipeImage}" alt="" style="border:10px solid white;">

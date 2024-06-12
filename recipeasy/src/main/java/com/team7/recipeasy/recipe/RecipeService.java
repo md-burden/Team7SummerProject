@@ -1,7 +1,10 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.comment.Comment;
+import com.team7.recipeasy.comment.CommentRepository;
 import com.team7.recipeasy.comment.CommentService;
 import com.team7.recipeasy.recipe.ingredients.Ingredient;
+import com.team7.recipeasy.reports.ReportService;
 import com.team7.recipeasy.user.User;
 import com.team7.recipeasy.user.UserRepository;
 import com.team7.recipeasy.user.UserService;
@@ -21,6 +24,10 @@ public class RecipeService {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private ReportService reportService;
 
     /**
      * Saves a new recipe to the database
@@ -36,7 +43,6 @@ public class RecipeService {
         recipe.setRecipeId(recipeId);
         User user = userService.getUserById(userId);
         recipe = new Recipe(recipe, user);
-
         recipeRepository.save(recipe);
     }
 
@@ -72,6 +78,8 @@ public class RecipeService {
     }
   
      public void deleteRecipeById(int recipeId){
+        List<Comment> comments = commentService.fetchAllCommentsByRecipeId(recipeId);
+        reportService.deleteReportByCommentId(comments);
         commentService.deleteCommentsByRecipeId(recipeId);
         recipeRepository.deleteById(recipeId);
     }

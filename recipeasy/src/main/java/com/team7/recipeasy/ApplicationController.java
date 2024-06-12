@@ -44,7 +44,7 @@ public class ApplicationController {
      */
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String home(Model model){
-        return "Base Pages/HomePage";
+        return "Base Pages/LoginPage";
     }
 
     /**

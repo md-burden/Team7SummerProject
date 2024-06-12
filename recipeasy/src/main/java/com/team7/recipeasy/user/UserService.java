@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +43,7 @@ public class UserService {
     }
 
     public void deleteUserById(int id){
-        userRepository.deleteById(id);
+        userRepository.deleteAllByIdInBatch(new ArrayList<Integer>(List.of(id)));
     }
 
     public void saveUser(User user){
