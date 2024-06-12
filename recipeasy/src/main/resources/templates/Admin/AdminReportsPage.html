@@ -43,6 +43,7 @@
                         <div style="display: flex; flex-direction:row; justify-content:space-between; align-items: center;">
                             <h3 class="card-title" th:text="${report.comment.commenter.username}"></h3>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                <a data-th-href="@{/ADMIN/recipe/{recipeId} (recipeId=${report.comment.recipe.recipeId})}" type="button" class="btn btn-primary">View Post</a>
                                 <a data-th-href="@{/ADMIN/reports/delete/{reportId} (reportId=${report.reportId})}" type="button" class="btn btn-primary">Delete</a>
                                 <a data-th-href="@{/ADMIN/reports/deleteBan/{reportId} (reportId=${report.reportId})}" type="button" class="btn btn-primary">Delete & Ban User</a>
                             </div>

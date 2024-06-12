@@ -32,14 +32,16 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public void createUser(@RequestBody User user){
+    public String createUser(User user){
         user.setActiveUser(true);
         userService.saveUser(user);
+        return "redirect:/login";
     }
 
-    @PutMapping("/update")
-    public void updateUser(@RequestBody User user){
-        userService.saveUser(user);
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute("user") User user){
+        userService.updateUser(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/{id}")
@@ -48,14 +50,15 @@ public class UserController {
     }
 
 
-    @PutMapping("/ban/{id}")
+    @PostMapping("/ban/{id}")
     public void banUserById(@PathVariable int id){
         userService.BanUserById(id);
     }
 
-    @DeleteMapping("/deleteAccount/{id}")
-    public void deleteUserById(@PathVariable int id){
+    @GetMapping("/deleteAccount/{id}")
+    public String deleteUserById(@PathVariable int id){
         userService.deleteUserById(id);
+        return "redirect:/login";
     }
 
     @GetMapping("/stats/getCount")
