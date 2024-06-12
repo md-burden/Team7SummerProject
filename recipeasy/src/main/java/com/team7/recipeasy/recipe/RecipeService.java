@@ -84,6 +84,13 @@ public class RecipeService {
         recipeRepository.deleteById(recipeId);
     }
 
+    public void deleteAllUserRecipes(int userId){
+        List<Recipe> recipes = recipeRepository.findAllCreatorRecipe(userId);
+        for(Recipe recipe : recipes){
+            deleteRecipeById(recipe.getRecipeId());
+        }
+    }
+
     public int getRecipeCountByUserId(int userId){
         return recipeRepository.getRecipeCountByUserId(userId);
     }

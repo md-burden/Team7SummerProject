@@ -44,7 +44,7 @@ public class ApplicationController {
      */
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String home(Model model){
-        return "Base Pages/LoginPage";
+        return "BasePages/LoginPage";
     }
 
     /**
@@ -53,12 +53,24 @@ public class ApplicationController {
      */
     @GetMapping("/login")
     public String login(){
-        return "Base Pages/LoginPage";
+        return "BasePages/LoginPage";
     }
 
     @GetMapping("/createAccount")
     public String createAccount(){
-        return "Base Pages/CreateAccountPage";
+        return "BasePages/CreateAccountPage";
+    }
+
+    @GetMapping("/forgotpassword")
+    public String resetPassword(Model model){
+        model.addAttribute("user", new User());
+        return "BasePages/ForgotPassword";
+    }
+
+    @PostMapping("/forgotpassword")
+    public String resetPassword(@ModelAttribute("user") User user){
+        userService.resetPassword(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/403")

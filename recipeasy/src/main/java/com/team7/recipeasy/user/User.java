@@ -42,6 +42,16 @@ public class User {
         this.username = user.getUsername();
     }
 
+    public User(User user, String password){
+        this.userId = user.userId;
+        this.role = user.role;
+        this.email = user.email;
+        this.password = password;
+        this.preference = user.preference;
+        this.isActiveUser = isActiveUser();
+        this.username = user.getUsername();
+    }
+
     public User(int userId, @Nonnull String username, @Nonnull Role role, @Nonnull String email, @Nonnull String password, @Nonnull String preference, boolean isActiveUser) {
         this.userId = userId;
         this.username = username;

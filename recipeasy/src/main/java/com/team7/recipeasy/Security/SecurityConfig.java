@@ -35,6 +35,7 @@ public class SecurityConfig {
                                 DispatcherType.ERROR).permitAll()
                         .requestMatchers(staticResources).permitAll()
                         .requestMatchers("/createAccount").permitAll()
+                        .requestMatchers("/forgotpassword").permitAll()
                         .requestMatchers("/user/create").permitAll()
                         .requestMatchers("/CREATOR/**").hasAuthority("CREATOR")
                         .requestMatchers("/ADMIN/**").hasAuthority("ADMIN")

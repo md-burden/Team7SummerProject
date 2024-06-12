@@ -11,7 +11,6 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-
     <!-- Using thymeleaf to load style sheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 
@@ -271,7 +270,8 @@
 
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <form action="#" id="reportForm" th:action="@{/CREATOR/report}" th:object="${report}" method="post">
+                        <form action="#" id="reportForm" th:action="@{/CREATOR/report}" th:object="${report}"
+                              method="post">
                             <textarea class="form-control" id="report" name="reportReason"
                                       th:data="*{reportReason}"
                                       placeholder="Write your report here..."

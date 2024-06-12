@@ -1,6 +1,7 @@
 package com.team7.recipeasy.user;
 
 import com.team7.recipeasy.constants.Role;
+import com.team7.recipeasy.recipe.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,11 +40,12 @@ public class UserService {
     }
 
     public int getActiveUserCountByAcctType(Role r){
+
         return userRepository.getActiveUserCountByAcctType(r.ordinal());
     }
 
-    public void deleteUserById(int id){
-        userRepository.deleteAllByIdInBatch(new ArrayList<Integer>(List.of(id)));
+    public void deleteUserById(int userId){
+        userRepository.deleteById(userId);
     }
 
     public void saveUser(User user){
@@ -52,9 +54,18 @@ public class UserService {
     }
 
     public void updateUser(User user){
+        user.setActiveUser(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
+    public void resetPassword(User user){
+        User u = userRepository.getUserByUsername(user.getUsername()).orElse(null);
+        if(u != null){
+            u.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(u);
+        }
+    }
 
     public int getBannedUserCount(){
         return userRepository.getTotalBannedUserCount();

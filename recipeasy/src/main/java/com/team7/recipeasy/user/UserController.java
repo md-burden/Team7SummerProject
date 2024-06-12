@@ -28,8 +28,9 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public void updateUser(@RequestBody User user){
+    public String updateUser(@ModelAttribute("user") User user){
         userService.updateUser(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/{id}")

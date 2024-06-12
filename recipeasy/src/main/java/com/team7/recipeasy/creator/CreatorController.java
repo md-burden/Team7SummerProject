@@ -70,6 +70,7 @@ public class CreatorController {
     public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
         model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+        System.out.println(commentService.fetchAllCommentsByRecipeId(recipeId).toString());
         model.addAttribute("report", new Report());
         return "Creator/recipepage";
     }
@@ -131,8 +132,14 @@ public class CreatorController {
     @GetMapping("/profile")
     public String loadHomePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
         User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
-        System.out.println(user.getUsername());
         model.addAttribute("user", user);
         return "Creator/profilepage";
+    }
+
+    @GetMapping("/profile/delete")
+    public String deleteCreatorProfile(@AuthenticationPrincipal UserDetails userDetails){
+        User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
+        recipeService.deleteAllUserRecipes(user.getUserId());
+        return "redirect:/user/deleteAccount/" + user.getUserId();
     }
 }
