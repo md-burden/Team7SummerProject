@@ -19,7 +19,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int commentId;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 

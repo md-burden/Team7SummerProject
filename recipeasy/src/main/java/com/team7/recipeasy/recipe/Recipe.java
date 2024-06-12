@@ -1,5 +1,6 @@
 package com.team7.recipeasy.recipe;
 
+import com.team7.recipeasy.comment.Comment;
 import com.team7.recipeasy.constants.RecipeConstants;
 import com.team7.recipeasy.recipe.ingredients.Ingredient;
 import com.team7.recipeasy.user.User;
@@ -48,6 +49,8 @@ public class Recipe {
     )
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipeId")
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+
 
     @Nonnull
     private int totalSaves;

@@ -43,7 +43,6 @@ public class CommentService {
 
     public void deleteCommentReplyBlock(int id){
         Comment comment = fetchCommentById(id);
-        commentRepository.deleteById(comment.getConnectedId());
         commentRepository.deleteById(comment.getCommentId());
     }
 
@@ -58,6 +57,10 @@ public class CommentService {
 
     public int getCommentCountByUser(int userId){
         return commentRepository.getCommentCountByUser(userId);
+    }
+
+    public int getReplyCountByCommentId(int commentId){
+        return commentRepository.getReplyCountByCommentID(commentId);
     }
 
 }
