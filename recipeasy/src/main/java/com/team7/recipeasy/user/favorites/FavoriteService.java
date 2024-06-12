@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("myFavoriteService")
 public class FavoriteService {
     @Autowired
     private FavoriteRepository favoriteRepository;
@@ -44,13 +44,14 @@ public class FavoriteService {
         User user = userService.getUserById(userId);
         Recipe recipe = recipeService.getRecipeById(recipeId);
 
-
         Favorite favorite = new Favorite(user, recipe);
         return favoriteRepository.save(favorite);
     }
 
 
     public void removeFavorite(int userId, int recipeId) {
+//        System.out.println("userId: " + userId);
+//        System.out.println("recipeId: " + recipeId);
         Favorite favorite = favoriteRepository.findByUserIdAndRecipeId(userId, recipeId);
         if (favorite != null) {
             favoriteRepository.delete(favorite);
@@ -61,5 +62,10 @@ public class FavoriteService {
     public List<Recipe> getFavoriteRecipes(int userId) {
         List<Favorite> favorites = favoriteRepository.findByUserId(userId);
         return favorites.stream().map(Favorite::getRecipe).collect(Collectors.toList());
+    }
+
+    public boolean isFavoriteRecipe(int recipeId, int userId) {
+        Favorite favorite = favoriteRepository.findByUserIdAndRecipeId(userId, recipeId);
+        return favorite != null;
     }
 }

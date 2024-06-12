@@ -29,12 +29,12 @@ public class RecipeController {
      * @param model
      * @return
      */
-    @GetMapping("")
-    public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
-        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
-        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
-        return "recipepage";
-    }
+//    @GetMapping("")
+//    public String getRecipe(@RequestParam(value = "recipeId", required = true) int recipeId, Model model){
+//        model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
+//        model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
+//        return "recipepage";
+//    }
 
     /**
      * Returns the total saves for a give Recipe by the recipe ID.
@@ -66,11 +66,6 @@ public class RecipeController {
             model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
             model.addAttribute("comments", commentService.fetchAllCommentsByRecipeId(recipeId));
             return "Creator/creatorrecipepage";
-        }
-
-        @GetMapping("/totalSaves/{id}")
-        public int getTotalSavesById ( @PathVariable int id){
-            return recipeService.getRecipeCountById(id);
         }
 }
 

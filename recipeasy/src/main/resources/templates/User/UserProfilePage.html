@@ -41,13 +41,12 @@
     </a>
 </div>
 <div class="container" style="margin-left: 20px; margin-top: 20px;">
-    <p><strong>Username</strong> FoodLover123</p>
-    <p><strong>Name</strong> Username McPerson</p>
-    <p><strong>Preferences</strong> Italian</p>
+    <p><strong>Username</strong> <span th:text="${user.username}">FoodLover123</span></p>
+    <p><strong>Email: </strong> <span th:text="${user.email}"></span></p>
     <div class="d-grid gap-2 col-3">
         <button class="btn btn-primary" type="button">Change Password</button>
         <button class="btn btn-primary" type="button">Delete Account</button>
-        <a th:href="@{/UserLogin}" class="btn btn-primary" type="button">Log Out</a>
+        <a th:href="@{/logout}" class="btn btn-primary" type="button">Log Out</a>
     </div>
 </div>
 </body>
