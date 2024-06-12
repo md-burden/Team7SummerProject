@@ -1,5 +1,7 @@
 package com.team7.recipeasy.comment;
 
+import com.team7.recipeasy.reports.ReportRepository;
+import com.team7.recipeasy.reports.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,9 @@ public class CommentService {
 
     @Autowired
     CommentRepository commentRepository;
+
+//    @Autowired
+//    ReportService reportService;
 
     public void deleteCommentById(int id){
         commentRepository.deleteById(id);
@@ -40,14 +45,11 @@ public class CommentService {
         Comment comment = fetchCommentById(id);
         commentRepository.deleteById(comment.getConnectedId());
         commentRepository.deleteById(comment.getCommentId());
-
     }
 
     public void deleteCommentsByRecipeId(int recipeId){
         List<Comment> comments = commentRepository.getCommentsByRecipe(recipeId);
-        for(Comment comment : comments){
-            deleteCommentReplyBlock(comment.getCommentId());
-        }
+        commentRepository.deleteAllInBatch(comments);
     }
 
     public int getCommentCountByRecipe(int recipeId){

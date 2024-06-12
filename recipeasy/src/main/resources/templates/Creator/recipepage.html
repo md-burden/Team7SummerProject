@@ -54,7 +54,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/user/{userId} (userId=${userId})}">
+        <a data-th-href="@{/CREATOR/profile}">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle"
                      viewBox="0 0 16 16">
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <div class="col-2" style="padding: 0">
-                        <a data-th-href="@{/recipe/CREATOR/update?userId={userId}&recipeId={recipeId} (recipeId=${recipe.recipeId}, userId=${recipe.user.userId})}">
+                        <a data-th-href="@{/CREATOR/update?recipeId={recipeId} (recipeId=${recipe.recipeId})}">
                             <button class="btn btn-primary">Edit Recipe</button>
                         </a>
                     </div>
@@ -234,7 +234,7 @@
                                     Close
                                 </button>
                                 <button type="submit"
-                                        class="btn btn-primary" formaction="/action_one">
+                                        class="btn btn-primary">
                                     Save
                                 </button>
                             </div>

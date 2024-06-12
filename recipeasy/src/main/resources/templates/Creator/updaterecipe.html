@@ -47,7 +47,7 @@
             </button>
         </a>
 
-        <a data-th-href="@{/user/{userId} (userId=${userId})}">
+        <a data-th-href="@{/CREATOR/profile}">
             <button class="btn" id="UserIcon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle"
                      viewBox="0 0 16 16">
@@ -62,8 +62,8 @@
 </div>
 <!--End Banner -->
 
-<form action="#" th:action="@{/recipe/CREATOR/update?userId={userId}&recipeId={recipeId} (userId=${recipe.user.userId},
-recipeId=${recipe.recipeId})}" th:object="${recipe}" method="post">
+<form action="#" th:action="@{/CREATOR/update?recipeId={recipeId} (recipeId=${recipe.recipeId})}"
+      th:object="${recipe}" method="post">
 
     <div style="margin: 10px">
 
@@ -175,7 +175,7 @@ recipeId=${recipe.recipeId})}" th:object="${recipe}" method="post">
             <button class="btn btn-primary" type="submit">Update Recipe</button>
         </div>
         <div class="col-md-auto" style="margin: 10px 0 10px 0">
-            <a class="btn btn-primary" data-th-href="@{/recipe/CREATOR/delete?recipeId={recipeId} (recipeId=*{recipeId})}">Delete Recipe</a>
+            <a class="btn btn-primary" data-th-href="@{/CREATOR/delete?recipeId={recipeId} (recipeId=*{recipeId})}">Delete Recipe</a>
         </div>
     </div>
 </form>
@@ -184,11 +184,9 @@ recipeId=${recipe.recipeId})}" th:object="${recipe}" method="post">
 <script>
     let model_input = document.getElementById('model');
     let image = document.getElementsByTagName('img');
-    let update = document.getElementById("update");
-
-    update.addEventListener("click", function () {
-        image[0].src = model_input.value;
-    })
+    window.onload = function() {
+        image[0].src = model_input.value; //example function call.
+    }
 </script>
 
 </body>

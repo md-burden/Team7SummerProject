@@ -101,7 +101,7 @@ public class CreatorController {
     public String updateRecipe(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("recipe") Recipe recipe, @RequestParam(name="recipeId") int recipeId){
         int userId = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null)).getUserId();
         recipeService.updateRecipe(recipe, userId, recipeId);
-        return "redirect:?recipeId=" + recipe.getRecipeId();
+        return "redirect:/CREATOR/recipe?recipeId=" + recipe.getRecipeId();
     }
 
     /**
@@ -110,8 +110,8 @@ public class CreatorController {
      * @return
      */
     @GetMapping("/delete")
-    public String deleteRecipe(@RequestParam(name = "recipeId", required = true) int recipeId){
-        int userId = recipeService.getRecipeById(recipeId).getUser().getUserId();
+    public String deleteRecipe(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "recipeId", required = true) int recipeId){
+        int userId = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null)).getUserId();
         recipeService.deleteRecipeById(recipeId);
         return "redirect:/CREATOR/home";
     }
@@ -131,6 +131,7 @@ public class CreatorController {
     @GetMapping("/profile")
     public String loadHomePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
         User user = Objects.requireNonNull(userService.findUserByUsername(userDetails.getUsername()).orElse(null));
+        System.out.println(user.getUsername());
         model.addAttribute("user", user);
         return "Creator/profilepage";
     }

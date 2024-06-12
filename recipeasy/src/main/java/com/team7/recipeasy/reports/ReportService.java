@@ -32,6 +32,13 @@ public class ReportService {
         reportRepository.deleteById(id);
     }
 
+    public void deleteReportByCommentId(List<Comment> comment){
+        for (Comment c : comment){
+            List<Report> commentReports = reportRepository.findReportsByCommentId(c.getCommentId());
+            reportRepository.deleteAll(commentReports);
+        }
+    }
+
     /**
      * Handles reports based on Enum parameter
      * REMOVE_TEXT: simply removes the comment text and associated commenter id, but
